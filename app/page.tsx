@@ -34,170 +34,224 @@ export default function Home() {
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Welcome to Quiz Platform
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-0 right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className="text-center">
+          <div className="animate-fade-in-up">
+            <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent mb-6 animate-pulse">
+              Quiz Platform
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Create engaging quizzes or test your knowledge with our comprehensive quiz platform.
-              Join thousands of learners and educators worldwide.
-            </p>
-            <div className="space-x-4">
-              <Button asChild size="lg">
-                <Link href="/sign-in">Get Started</Link>
-              </Button>
-              <Button variant="outline" asChild size="lg">
-                <Link href="/sign-up">Sign Up</Link>
-              </Button>
-            </div>
+            <div className="h-1 w-32 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full mb-8"></div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            <Card>
-              <CardHeader>
-                <BookOpen className="h-12 w-12 text-blue-600 mb-4" />
-                <CardTitle>Create Quizzes</CardTitle>
-                <CardDescription>
-                  Design interactive quizzes with multiple question types including MCQs and short answers.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Users className="h-12 w-12 text-green-600 mb-4" />
-                <CardTitle>Engage Students</CardTitle>
-                <CardDescription>
-                  Share your quizzes with students and track their progress in real-time.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Trophy className="h-12 w-12 text-purple-600 mb-4" />
-                <CardTitle>Track Performance</CardTitle>
-                <CardDescription>
-                  Monitor quiz results and analyze performance with detailed analytics.
-                </CardDescription>
-              </CardHeader>
-            </Card>
+          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
+            Create engaging quizzes or test your knowledge with our comprehensive quiz platform.
+            <span className="block mt-2 text-purple-300 font-semibold">Join thousands of learners and educators worldwide.</span>
+          </p>
+          <div className="space-x-4 animate-fade-in-up animation-delay-400">
+            <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <Link href="/sign-in">🚀 Get Started</Link>
+            </Button>
+            <Button variant="outline" asChild size="lg" className="border-2 border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <Link href="/sign-up">✨ Sign Up</Link>
+            </Button>
           </div>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 animate-fade-in-up animation-delay-600">
+          <Card className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 backdrop-blur-lg border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl group">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full w-20 h-20 flex items-center justify-center group-hover:animate-bounce">
+                <BookOpen className="h-8 w-8 text-white" />
+              </div>
+              <CardTitle className="text-white text-xl font-bold">Create Quizzes</CardTitle>
+              <CardDescription className="text-blue-200">
+                Design interactive quizzes with multiple question types including MCQs and short answers.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-lg border border-green-400/30 hover:border-green-400/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl group">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full w-20 h-20 flex items-center justify-center group-hover:animate-bounce">
+                <Users className="h-8 w-8 text-white" />
+              </div>
+              <CardTitle className="text-white text-xl font-bold">Engage Students</CardTitle>
+              <CardDescription className="text-green-200">
+                Share your quizzes with students and track their progress in real-time.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-lg border border-purple-400/30 hover:border-purple-400/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl group">
+            <CardHeader className="text-center">
+              <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full w-20 h-20 flex items-center justify-center group-hover:animate-bounce">
+                <Trophy className="h-8 w-8 text-white" />
+              </div>
+              <CardTitle className="text-white text-xl font-bold">Track Performance</CardTitle>
+              <CardDescription className="text-purple-200">
+                Monitor quiz results and analyze performance with detailed analytics.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
       </div>
+    </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+      </div>
+
+      {/* Header */}
+      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Quiz Platform</h1>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">Welcome, {user.firstName}</span>
-              <Button variant="outline" size="sm">
-                <Link href="/profile">Profile</Link>
+              <div className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl">
+                <BookOpen className="h-8 w-8 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Quiz Platform
+              </h1>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-full px-4 py-2 border border-purple-400/30">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-purple-200">Welcome, {user.firstName}</span>
+              </div>
+              <Button variant="outline" size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
+                <Link href="/profile">✨ Profile</Link>
               </Button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <div className="mb-8 text-center animate-fade-in-up">
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            Your Learning Hub
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 animate-fade-in-up animation-delay-200">
           {/* Quiz Master Section */}
           {userData?.role === "quiz-master" && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <PlusCircle className="h-5 w-5 mr-2" />
+            <Card className="group bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-xl border border-indigo-400/30 hover:border-indigo-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
+              <CardHeader className="relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardTitle className="flex items-center text-white relative z-10">
+                  <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg mr-3 group-hover:animate-bounce">
+                    <PlusCircle className="h-5 w-5 text-white" />
+                  </div>
                   Quiz Master Dashboard
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-indigo-200 relative z-10">
                   Create and manage your quizzes
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <Button asChild className="w-full">
-                  <Link href="/dashboard/quizzes">My Quizzes</Link>
+              <CardContent className="space-y-4 relative z-10">
+                <Button asChild className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                  <Link href="/dashboard/quizzes">🎯 My Quizzes</Link>
                 </Button>
-                <Button asChild variant="outline" className="w-full">
-                  <Link href="/dashboard/create-quiz">Create New Quiz</Link>
+                <Button asChild variant="outline" className="w-full border-indigo-400/50 text-indigo-200 hover:bg-indigo-600/20 hover:border-indigo-400 rounded-xl transition-all duration-300">
+                  <Link href="/dashboard/create-quiz">✨ Create New Quiz</Link>
                 </Button>
               </CardContent>
             </Card>
           )}
 
           {/* Available Quizzes Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <BookOpen className="h-5 w-5 mr-2" />
+          <Card className="group bg-gradient-to-br from-emerald-600/20 to-teal-600/20 backdrop-blur-xl border border-emerald-400/30 hover:border-emerald-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/25">
+            <CardHeader className="relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardTitle className="flex items-center text-white relative z-10">
+                <div className="p-2 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg mr-3 group-hover:animate-bounce">
+                  <BookOpen className="h-5 w-5 text-white" />
+                </div>
                 Available Quizzes
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-emerald-200 relative z-10">
                 Take quizzes and test your knowledge
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Button asChild className="w-full">
-                <Link href="/quizzes">Browse Quizzes</Link>
+            <CardContent className="relative z-10">
+              <Button asChild className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                <Link href="/quizzes">🧠 Browse Quizzes</Link>
               </Button>
             </CardContent>
           </Card>
 
           {/* Leaderboard Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <TrendingUp className="h-5 w-5 mr-2" />
+          <Card className="group bg-gradient-to-br from-orange-600/20 to-red-600/20 backdrop-blur-xl border border-orange-400/30 hover:border-orange-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
+            <CardHeader className="relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-600/10 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardTitle className="flex items-center text-white relative z-10">
+                <div className="p-2 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg mr-3 group-hover:animate-bounce">
+                  <TrendingUp className="h-5 w-5 text-white" />
+                </div>
                 Leaderboard
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-orange-200 relative z-10">
                 See how you rank against other quiz takers
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Button asChild className="w-full">
-                <Link href="/leaderboard">View Leaderboard</Link>
+            <CardContent className="relative z-10">
+              <Button asChild className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                <Link href="/leaderboard">🏆 View Leaderboard</Link>
               </Button>
             </CardContent>
           </Card>
 
           {/* My Results Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Trophy className="h-5 w-5 mr-2" />
+          <Card className="group bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-xl border border-blue-400/30 hover:border-blue-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25">
+            <CardHeader className="relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-cyan-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardTitle className="flex items-center text-white relative z-10">
+                <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-lg mr-3 group-hover:animate-bounce">
+                  <Trophy className="h-5 w-5 text-white" />
+                </div>
                 My Results
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-blue-200 relative z-10">
                 View your quiz attempts and scores
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Button asChild variant="outline" className="w-full">
-                <Link href="/results">View Results</Link>
+            <CardContent className="relative z-10">
+              <Button asChild variant="outline" className="w-full border-blue-400/50 text-blue-200 hover:bg-blue-600/20 hover:border-blue-400 rounded-xl transition-all duration-300">
+                <Link href="/results">📊 View Results</Link>
               </Button>
             </CardContent>
           </Card>
 
           {/* Role Management */}
           {userData?.role === "general" && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Become a Quiz Master</CardTitle>
-                <CardDescription>
+            <Card className="group bg-gradient-to-br from-pink-600/20 to-rose-600/20 backdrop-blur-xl border border-pink-400/30 hover:border-pink-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/25">
+              <CardHeader className="relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-600/10 to-rose-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardTitle className="text-white relative z-10">Become a Quiz Master</CardTitle>
+                <CardDescription className="text-pink-200 relative z-10">
                   Upgrade to create your own quizzes
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <Button asChild variant="outline" className="w-full">
-                  <Link href="/upgrade">Request Upgrade</Link>
+              <CardContent className="relative z-10">
+                <Button asChild variant="outline" className="w-full border-pink-400/50 text-pink-200 hover:bg-pink-600/20 hover:border-pink-400 rounded-xl transition-all duration-300">
+                  <Link href="/upgrade">🚀 Request Upgrade</Link>
                 </Button>
               </CardContent>
             </Card>

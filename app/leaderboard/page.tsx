@@ -22,22 +22,40 @@ export default function PublicLeaderboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+      </div>
+
+      {/* Header */}
+      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Leaderboard</h1>
+            <div className="flex items-center space-x-4">
+              <div className="p-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl animate-glow">
+                <Trophy className="h-8 w-8 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                Leaderboard
+              </h1>
+            </div>
             <div className="flex items-center space-x-4">
               {user ? (
                 <>
-                  <span className="text-sm text-gray-600">Welcome, {user.firstName}</span>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href="/">Dashboard</Link>
+                  <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-full px-4 py-2 border border-purple-400/30">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-purple-200">Welcome, {user.firstName}</span>
+                  </div>
+                  <Button variant="outline" size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300" asChild>
+                    <Link href="/">🏠 Dashboard</Link>
                   </Button>
                 </>
               ) : (
-                <Button variant="outline" size="sm" asChild>
-                  <Link href="/sign-in">Sign In</Link>
+                <Button variant="outline" size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300" asChild>
+                  <Link href="/sign-in">🔐 Sign In</Link>
                 </Button>
               )}
             </div>
