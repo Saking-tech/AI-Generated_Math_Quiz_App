@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ConvexClientProvider } from './convex-provider'
+import SimpleBackground from '@/components/SimpleBackground'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,12 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <ConvexClientProvider>
-            {children}
+            {/* Background */}
+            <SimpleBackground />
+            {/* Content */}
+            <div className="relative z-10">
+              {children}
+            </div>
           </ConvexClientProvider>
         </body>
       </html>

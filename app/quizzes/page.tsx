@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate, formatDuration } from "@/lib/utils";
-import { Clock, FileText, User } from "lucide-react";
+import { Clock, FileText, User, Home } from "lucide-react";
+import AuthButton from "@/components/AuthButton";
 
 export default function QuizzesPage() {
   const quizzes = useQuery(api.quizzes.getPublishedQuizzes);
@@ -16,38 +17,45 @@ export default function QuizzesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Header */}
+      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Available Quizzes</h1>
-            <Button variant="outline" asChild>
-              <Link href="/">Back to Home</Link>
-            </Button>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Available Quizzes</h1>
+            <div className="flex items-center space-x-3">
+              <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
+                <Link href="/">
+                  <Home className="h-4 w-4 mr-2" />
+                  Back to Home
+                </Link>
+              </Button>
+              <AuthButton />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {quizzes.length === 0 ? (
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-xl border border-purple-400/30">
             <CardContent className="text-center py-8">
-              <h3 className="text-lg font-medium mb-2">No quizzes available</h3>
-              <p className="text-gray-600">Check back later for new quizzes!</p>
+              <h3 className="text-lg font-medium mb-2 text-white">No quizzes available</h3>
+              <p className="text-purple-200">Check back later for new quizzes!</p>
             </CardContent>
           </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {quizzes.map((quiz) => (
-              <Card key={quiz._id} className="hover:shadow-lg transition-shadow">
+              <Card key={quiz._id} className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-xl border border-purple-400/30 hover:border-purple-400/60 hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:transform hover:scale-105">
                 <CardHeader>
-                  <CardTitle className="text-lg">{quiz.title}</CardTitle>
+                  <CardTitle className="text-lg text-white">{quiz.title}</CardTitle>
                   {quiz.description && (
-                    <CardDescription>{quiz.description}</CardDescription>
+                    <CardDescription className="text-purple-200">{quiz.description}</CardDescription>
                   )}
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2 text-sm text-gray-600 mb-4">
+                  <div className="space-y-2 text-sm text-purple-200 mb-4">
                     <div className="flex items-center">
                       <User className="h-4 w-4 mr-2" />
                       Created: {formatDate(quiz.createdAt)}
@@ -60,7 +68,7 @@ export default function QuizzesPage() {
                     )}
                   </div>
                   
-                  <Button asChild className="w-full">
+                  <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                     <Link href={`/quizzes/${quiz._id}`}>
                       <FileText className="h-4 w-4 mr-2" />
                       Take Quiz

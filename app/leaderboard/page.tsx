@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowLeft, Trophy, TrendingUp, Users, Target, Award, Home } from "lucide-react";
+import AuthButton from "@/components/AuthButton";
 
 export default function PublicLeaderboardPage() {
   const { user } = useUser();
@@ -22,13 +23,7 @@ export default function PublicLeaderboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-yellow-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
-      </div>
+    <div className="min-h-screen relative overflow-hidden">
 
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
@@ -43,21 +38,13 @@ export default function PublicLeaderboardPage() {
               </h1>
             </div>
             <div className="flex items-center space-x-4">
-              {user ? (
-                <>
-                  <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-full px-4 py-2 border border-purple-400/30">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-purple-200">Welcome, {user.firstName}</span>
-                  </div>
-                  <Button variant="outline" size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300" asChild>
-                    <Link href="/">🏠 Dashboard</Link>
-                  </Button>
-                </>
-              ) : (
-                <Button variant="outline" size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300" asChild>
-                  <Link href="/sign-in">🔐 Sign In</Link>
-                </Button>
-              )}
+              <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
+                <Link href="/">
+                  <Home className="h-4 w-4 mr-2" />
+                  Home
+                </Link>
+              </Button>
+              <AuthButton />
             </div>
           </div>
         </div>

@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusCircle, BookOpen, Users, Trophy, TrendingUp } from "lucide-react";
+import AuthButton from "@/components/AuthButton";
+import TextType from "@/components/TextType";
 
 export default function Home() {
   const { user, isLoaded } = useUser();
@@ -20,12 +22,20 @@ export default function Home() {
   useEffect(() => {
     if (isLoaded && user && !userData) {
       // Create user in Convex if it doesn't exist
-      createUser({
-        clerkId: user.id,
-        email: user.emailAddresses[0]?.emailAddress || "",
-        name: user.fullName || "",
-        role: "general", // Default role, can be changed later
-      });
+      const createUserInConvex = async () => {
+        try {
+          await createUser({
+            clerkId: user.id,
+            email: user.emailAddresses[0]?.emailAddress || "",
+            name: user.fullName || user.emailAddresses[0]?.emailAddress || "User",
+            role: "general", // Default role, can be changed later
+          });
+        } catch (error) {
+          console.error("Failed to create user in Convex:", error);
+        }
+      };
+      
+      createUserInConvex();
     }
   }, [user, userData, isLoaded, createUser]);
 
@@ -35,13 +45,7 @@ export default function Home() {
 
   if (!user) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-0 right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-      </div>
+    <div className="min-h-screen relative overflow-hidden">
       
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="text-center">
@@ -108,13 +112,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
-      </div>
+    <div className="min-h-screen relative overflow-hidden">
 
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
@@ -128,23 +126,24 @@ export default function Home() {
                 Quiz Platform
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-full px-4 py-2 border border-purple-400/30">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-purple-200">Welcome, {user.firstName}</span>
-              </div>
-              <Button variant="outline" size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
-                <Link href="/profile">✨ Profile</Link>
-              </Button>
-            </div>
+            <AuthButton />
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="mb-8 text-center animate-fade-in-up">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-            Your Learning Hub
+          <h2 className="text-4xl font-bold mb-4">
+            <TextType 
+              text={["Your Learning Hub", "Create Amazing Quizzes", "Test Your Knowledge", "Track Your Progress"]}
+              typingSpeed={75}
+              pauseDuration={1500}
+              showCursor={true}
+              cursorCharacter="|"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+              textColors={["#60a5fa", "#a78bfa", "#f472b6", "#34d399"]}
+              loop={true}
+            />
           </h2>
           <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </div>

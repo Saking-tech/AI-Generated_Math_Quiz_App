@@ -36,12 +36,13 @@ export default function QuizResultPage() {
   const { grade, color } = getGrade(percentage);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Header */}
+      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Quiz Results</h1>
-            <Button variant="outline" asChild>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Quiz Results</h1>
+            <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
               <Link href="/">
                 <Home className="h-4 w-4 mr-2" />
                 Home
@@ -51,7 +52,7 @@ export default function QuizResultPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Score Summary */}
           <Card>

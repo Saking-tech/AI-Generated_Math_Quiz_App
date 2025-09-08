@@ -1,19 +1,8 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/leaderboard/page": "app/leaderboard/page.js",
   "/page": "app/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/quizzes/[id]/page": "app/quizzes/[id]/page.js",
-  "/quizzes/page": "app/quizzes/page.js",
-  "/results/[id]/page": "app/results/[id]/page.js",
-  "/results/page": "app/results/page.js",
-  "/sign-in/[[...sign-in]]/page": "app/sign-in/[[...sign-in]]/page.js",
-  "/sign-up/[[...sign-up]]/page": "app/sign-up/[[...sign-up]]/page.js",
   "/upgrade/page": "app/upgrade/page.js",
+  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
   "/dashboard/create-quiz/page": "app/dashboard/create-quiz/page.js",
-  "/dashboard/import-export/page": "app/dashboard/import-export/page.js",
-  "/dashboard/quizzes/[id]/results/page": "app/dashboard/quizzes/[id]/results/page.js",
   "/dashboard/leaderboard/page": "app/dashboard/leaderboard/page.js",
-  "/dashboard/quizzes/[id]/page": "app/dashboard/quizzes/[id]/page.js",
-  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js"
+  "/dashboard/import-export/page": "app/dashboard/import-export/page.js"
 }
