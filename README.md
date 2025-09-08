@@ -1,6 +1,6 @@
 # Quiz Platform
 
-A comprehensive quiz application built with Next.js and Convex backend, featuring role-based access control for quiz masters and general users.
+A comprehensive quiz application built with Next.js and Convex backend, featuring role-based access control for quiz masters and general users. This platform supports AI-generated questions and provides an interactive learning experience for students and educators.
 
 ## Features
 
