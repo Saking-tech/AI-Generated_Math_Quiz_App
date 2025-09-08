@@ -53,9 +53,14 @@ export default function MyQuizzesPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">My Quizzes</h1>
-        <Button asChild>
-          <Link href="/dashboard/create-quiz">Create New Quiz</Link>
-        </Button>
+        <div className="flex space-x-3">
+          <Button variant="outline" asChild>
+            <Link href="/dashboard/import-export">Import/Export</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/dashboard/create-quiz">Create New Quiz</Link>
+          </Button>
+        </div>
       </div>
 
       {quizzes.length === 0 ? (

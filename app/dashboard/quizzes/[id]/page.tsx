@@ -11,7 +11,9 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Plus, Trash2, Edit, Save, X } from "lucide-react";
+import { Plus, Trash2, Edit, Save, X, Download } from "lucide-react";
+import { ExportButtons } from "@/components/quiz/ExportButtons";
+import { exportToJson, exportToMarkdown } from "@/lib/quizFormatters";
 
 type QuestionType = "mcq_single" | "mcq_multiple" | "short_answer";
 
@@ -30,6 +32,9 @@ export default function EditQuizPage() {
   const quizId = params.id as string;
   
   const quiz = useQuery(api.quizzes.getQuizWithQuestions, 
+    quizId ? { quizId: quizId as any } : "skip"
+  );
+  const exportQuizData = useQuery(api.importExport.exportQuizJson,
     quizId ? { quizId: quizId as any } : "skip"
   );
   const updateQuiz = useMutation(api.quizzes.updateQuiz);
@@ -107,6 +112,18 @@ export default function EditQuizPage() {
     }
   };
 
+  const handleExportQuiz = async (format: 'json' | 'markdown'): Promise<string> => {
+    if (!exportQuizData) {
+      throw new Error('Quiz data not available for export');
+    }
+
+    if (format === 'json') {
+      return exportToJson(exportQuizData);
+    } else {
+      return exportToMarkdown(exportQuizData);
+    }
+  };
+
   if (!quiz) {
     return <div>Loading...</div>;
   }
@@ -157,6 +174,14 @@ export default function EditQuizPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Export Section */}
+        {exportQuizData && (
+          <ExportButtons
+            quiz={quiz}
+            onExport={handleExportQuiz}
+          />
+        )}
 
         {/* Questions */}
         <Card>

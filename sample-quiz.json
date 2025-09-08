@@ -1,0 +1,59 @@
+{
+  "quiz": {
+    "title": "Sample JavaScript Quiz",
+    "description": "Test your knowledge of JavaScript fundamentals",
+    "duration": 30,
+    "isPublished": false
+  },
+  "questions": [
+    {
+      "questionText": "What is the correct way to declare a variable in JavaScript?",
+      "questionType": "mcq_single",
+      "options": [
+        "var myVar = 5;",
+        "variable myVar = 5;",
+        "v myVar = 5;",
+        "declare myVar = 5;"
+      ],
+      "correctAnswers": ["var myVar = 5;"],
+      "points": 2,
+      "order": 0
+    },
+    {
+      "questionText": "Which of the following are JavaScript data types? (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "String",
+        "Boolean",
+        "Integer",
+        "Number",
+        "Object"
+      ],
+      "correctAnswers": ["String", "Boolean", "Number", "Object"],
+      "points": 3,
+      "order": 1
+    },
+    {
+      "questionText": "What does 'DOM' stand for?",
+      "questionType": "short_answer",
+      "correctAnswers": ["Document Object Model", "document object model"],
+      "points": 2,
+      "order": 2
+    },
+    {
+      "questionText": "Which method is used to add an element to the end of an array?",
+      "questionType": "mcq_single",
+      "options": [
+        "push()",
+        "add()",
+        "append()",
+        "insert()"
+      ],
+      "correctAnswers": ["push()"],
+      "points": 1,
+      "order": 3
+    }
+  ],
+  "exportedAt": "2024-01-15T10:30:00.000Z",
+  "version": "1.0"
+}
