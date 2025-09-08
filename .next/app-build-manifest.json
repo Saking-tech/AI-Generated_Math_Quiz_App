@@ -11,16 +11,6 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/quizzes/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/quizzes/page.js"
-    ],
-    "/profile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/profile/page.js"
-    ],
     "/dashboard/create-quiz/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -31,10 +21,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/layout.js"
     ],
-    "/dashboard/quizzes/[id]/page": [
+    "/dashboard/import-export/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/quizzes/[id]/page.js"
+      "static/chunks/app/dashboard/import-export/page.js"
     ]
   }
 }

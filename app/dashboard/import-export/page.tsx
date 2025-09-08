@@ -25,12 +25,14 @@ export default function ImportExportPage() {
     userData ? { creatorId: userData._id } : "skip"
   );
   const importQuiz = useMutation(api.importExport.importQuizJson);
-  const exportQuizData = useQuery(api.importExport.exportQuizJson);
-  const cloneQuiz = useMutation(api.importExport.cloneQuiz);
-
   const [importing, setImporting] = useState(false);
-  const [importResult, setImportResult] = useState<{ success: boolean; message: string; quizId?: string } | null>(null);
   const [selectedQuizForExport, setSelectedQuizForExport] = useState<string>("");
+  const exportQuizData = useQuery(
+    api.importExport.exportQuizJson,
+    selectedQuizForExport ? { quizId: selectedQuizForExport as any } : "skip"
+  );
+  const cloneQuiz = useMutation(api.importExport.cloneQuiz);
+  const [importResult, setImportResult] = useState<{ success: boolean; message: string; quizId?: string } | null>(null);
   const [cloning, setCloning] = useState<string | null>(null);
 
   const handleFileUpload = async (content: string, filename: string, type: 'json' | 'markdown') => {
@@ -69,16 +71,14 @@ export default function ImportExportPage() {
   };
 
   const handleExportQuiz = async (format: 'json' | 'markdown'): Promise<string> => {
-    if (!selectedQuizForExport) {
-      throw new Error('No quiz selected for export');
+    if (!selectedQuizForExport || !exportQuizData) {
+      throw new Error('No quiz selected for export or quiz data not available');
     }
-
-    const quizData = await exportQuizData({ quizId: selectedQuizForExport as any });
     
     if (format === 'json') {
-      return exportToJson(quizData);
+      return exportToJson(exportQuizData);
     } else {
-      return exportToMarkdown(quizData);
+      return exportToMarkdown(exportQuizData);
     }
   };
 
@@ -219,7 +219,7 @@ export default function ImportExportPage() {
             </CardContent>
           </Card>
 
-          {selectedQuiz && (
+          {selectedQuiz && exportQuizData && (
             <ExportButtons
               quiz={selectedQuiz}
               onExport={handleExportQuiz}
