@@ -1,59 +1,414 @@
 {
   "quiz": {
-    "title": "Sample JavaScript Quiz",
-    "description": "Test your knowledge of JavaScript fundamentals",
-    "duration": 30,
+    "title": "Khilafat e Rashida and Daur-e-Nabuat Quiz",
+    "description": "Test your knowledge of the era of Prophethood and the Rightly-Guided Caliphs in Islamic history.",
+    "duration": 40,
     "isPublished": false
   },
   "questions": [
     {
-      "questionText": "What is the correct way to declare a variable in JavaScript?",
+      "questionText": "Who was the first Caliph of Islam after the death of Prophet Muhammad (PBUH)?",
       "questionType": "mcq_single",
-      "options": [
-        "var myVar = 5;",
-        "variable myVar = 5;",
-        "v myVar = 5;",
-        "declare myVar = 5;"
-      ],
-      "correctAnswers": ["var myVar = 5;"],
+      "options": ["Umar ibn Khattab", "Abu Bakr Siddiq", "Uthman ibn Affan", "Ali ibn Abi Talib"],
+      "correctAnswers": ["Abu Bakr Siddiq"],
       "points": 2,
       "order": 0
     },
     {
-      "questionText": "Which of the following are JavaScript data types? (Select all that apply)",
-      "questionType": "mcq_multiple",
+      "questionText": "Name the Caliphs in correct order.",
+      "questionType": "mcq_single",
       "options": [
-        "String",
-        "Boolean",
-        "Integer",
-        "Number",
-        "Object"
+        "Abu Bakr, Umar, Uthman, Ali",
+        "Ali, Uthman, Umar, Abu Bakr",
+        "Umar, Abu Bakr, Ali, Uthman",
+        "Uthman, Abu Bakr, Umar, Ali"
       ],
-      "correctAnswers": ["String", "Boolean", "Number", "Object"],
-      "points": 3,
+      "correctAnswers": ["Abu Bakr, Umar, Uthman, Ali"],
+      "points": 2,
       "order": 1
     },
     {
-      "questionText": "What does 'DOM' stand for?",
-      "questionType": "short_answer",
-      "correctAnswers": ["Document Object Model", "document object model"],
+      "questionText": "Which event marked the beginning of the Prophethood (Nabuwat) of Muhammad (PBUH)?",
+      "questionType": "mcq_single",
+      "options": [
+        "First revelation in Cave Hira",
+        "Isra and Mi'raj",
+        "Hijrah to Madinah",
+        "Treaty of Hudaybiyah"
+      ],
+      "correctAnswers": ["First revelation in Cave Hira"],
       "points": 2,
       "order": 2
     },
     {
-      "questionText": "Which method is used to add an element to the end of an array?",
+      "questionText": "Who was the Prophet's (PBUH) first wife?",
       "questionType": "mcq_single",
-      "options": [
-        "push()",
-        "add()",
-        "append()",
-        "insert()"
-      ],
-      "correctAnswers": ["push()"],
+      "options": ["Aisha", "Khadija", "Hafsa", "Zainab"],
+      "correctAnswers": ["Khadija"],
       "points": 1,
       "order": 3
+    },
+    {
+      "questionText": "The Battle of Badr was fought in which year?",
+      "questionType": "mcq_single",
+      "options": ["1 AH", "2 AH", "3 AH", "4 AH"],
+      "correctAnswers": ["2 AH"],
+      "points": 2,
+      "order": 4
+    },
+    {
+      "questionText": "Which caliph had the Qur'an compiled into book form for the first time?",
+      "questionType": "mcq_single",
+      "options": ["Ali ibn Abi Talib", "Umar ibn Khattab", "Abu Bakr Siddiq", "Uthman ibn Affan"],
+      "correctAnswers": ["Abu Bakr Siddiq"],
+      "points": 2,
+      "order": 5
+    },
+    {
+      "questionText": "Which Caliph expanded the Islamic state to the largest extent?",
+      "questionType": "mcq_single",
+      "options": ["Ali ibn Abi Talib", "Umar ibn Khattab", "Abu Bakr Siddiq", "Uthman ibn Affan"],
+      "correctAnswers": ["Umar ibn Khattab"],
+      "points": 2,
+      "order": 6
+    },
+    {
+      "questionText": "Who was known as 'Zun-Nurain' (the one with two lights)?",
+      "questionType": "mcq_single",
+      "options": ["Umar ibn Khattab", "Abu Bakr Siddiq", "Uthman ibn Affan", "Ali ibn Abi Talib"],
+      "correctAnswers": ["Uthman ibn Affan"],
+      "points": 1,
+      "order": 7
+    },
+    {
+      "questionText": "In which city did the Prophet (PBUH) pass away?",
+      "questionType": "mcq_single",
+      "options": ["Makkah", "Madinah", "Taif", "Jerusalem"],
+      "correctAnswers": ["Madinah"],
+      "points": 1,
+      "order": 8
+    },
+    {
+      "questionText": "What was the name of the treaty with the people of Makkah before conquest?",
+      "questionType": "mcq_single",
+      "options": [
+        "Treaty of Hudaibiya",
+        "Treaty of Aqabah",
+        "Treaty of Hudaybiyah",
+        "Treaty of Fudul"
+      ],
+      "correctAnswers": ["Treaty of Hudaibiya"],
+      "points": 2,
+      "order": 9
+    },
+    {
+      "questionText": "Who became the fourth Caliph after Prophet Muhammad (PBUH)?",
+      "questionType": "mcq_single",
+      "options": ["Uthman ibn Affan", "Ali ibn Abi Talib", "Muawiyah", "Hassan ibn Ali"],
+      "correctAnswers": ["Ali ibn Abi Talib"],
+      "points": 1,
+      "order": 10
+    },
+    {
+      "questionText": "Who was responsible for the compilation of the Quran during Uthman’s Caliphate?",
+      "questionType": "mcq_single",
+      "options": ["Ali ibn Abi Talib", "Zaid ibn Thabit", "Abu Huraira", "Umar ibn Khattab"],
+      "correctAnswers": ["Zaid ibn Thabit"],
+      "points": 2,
+      "order": 11
+    },
+    {
+      "questionText": "In whose reign was Masjid Nabawi expanded for the first time?",
+      "questionType": "mcq_single",
+      "options": ["Abu Bakr Siddiq", "Umar ibn Khattab", "Uthman ibn Affan", "Ali ibn Abi Talib"],
+      "correctAnswers": ["Umar ibn Khattab"],
+      "points": 2,
+      "order": 12
+    },
+    {
+      "questionText": "What does 'Khilafat e Rashida' mean in English?",
+      "questionType": "mcq_single",
+      "options": [
+        "Guided Governments",
+        "Rightly Guided Caliphate",
+        "Chosen Caliphate",
+        "Religious Leadership"
+      ],
+      "correctAnswers": ["Rightly Guided Caliphate"],
+      "points": 2,
+      "order": 13
+    },
+    {
+      "questionText": "Who migrated with the Prophet (PBUH) from Makkah to Madinah?",
+      "questionType": "mcq_single",
+      "options": ["Ali ibn Abi Talib", "Abu Bakr Siddiq", "Umar ibn Khattab", "Bilal ibn Rabah"],
+      "correctAnswers": ["Abu Bakr Siddiq"],
+      "points": 1,
+      "order": 14
+    },
+    {
+      "questionText": "In which year of Hijra did the Prophet (PBUH) perform his last Hajj?",
+      "questionType": "mcq_single",
+      "options": ["8th", "9th", "10th", "11th"],
+      "correctAnswers": ["10th"],
+      "points": 2,
+      "order": 15
+    },
+    {
+      "questionText": "Which daughter of Abu Bakr (RA) was married to Prophet Muhammad (PBUH)?",
+      "questionType": "mcq_single",
+      "options": ["Aisha", "Fatima", "Zainab", "Umm Kulthum"],
+      "correctAnswers": ["Aisha"],
+      "points": 1,
+      "order": 16
+    },
+    {
+      "questionText": "Who was known for his justice and is called Al-Farooq?",
+      "questionType": "mcq_single",
+      "options": ["Ali", "Umar", "Abu Bakr", "Uthman"],
+      "correctAnswers": ["Umar"],
+      "points": 1,
+      "order": 17
+    },
+    {
+      "questionText": "What was the name of the cave where the Prophet (PBUH) and Abu Bakr hid during migration?",
+      "questionType": "mcq_single",
+      "options": ["Cave Thawr", "Cave Hira", "Cave Saur", "Cave Uhud"],
+      "correctAnswers": ["Cave Thawr"],
+      "points": 2,
+      "order": 18
+    },
+    {
+      "questionText": "What term was used for Quran memorizers who died in battles?",
+      "questionType": "mcq_single",
+      "options": ["Muhaddith", "Hafiz", "Alim", "Mujahid"],
+      "correctAnswers": ["Hafiz"],
+      "points": 2,
+      "order": 19
+    },
+    {
+      "questionText": "The incident of Ghadir Khumm is associated with which personality?",
+      "questionType": "mcq_single",
+      "options": ["Uthman", "Ali", "Umar", "Abu Bakr"],
+      "correctAnswers": ["Ali"],
+      "points": 1,
+      "order": 20
+    },
+    {
+      "questionText": "Who was martyred while reciting the Qur'an in his home?",
+      "questionType": "mcq_single",
+      "options": ["Umar", "Ali", "Uthman", "Abu Bakr"],
+      "correctAnswers": ["Uthman"],
+      "points": 1,
+      "order": 21
+    },
+    {
+      "questionText": "Which caliph established the Islamic calendar (Hijri)?",
+      "questionType": "mcq_single",
+      "options": ["Ali", "Umar", "Uthman", "Abu Bakr"],
+      "correctAnswers": ["Umar"],
+      "points": 1,
+      "order": 22
+    },
+    {
+      "questionText": "How many years did the Khilafat e Rashida last?",
+      "questionType": "mcq_single",
+      "options": [
+        "About 20 years",
+        "About 30 years",
+        "About 40 years",
+        "About 50 years"
+      ],
+      "correctAnswers": ["About 30 years"],
+      "points": 2,
+      "order": 23
+    },
+    {
+      "questionText": "Who is known as Khalifatullah (Caliph of Allah) in Islamic tradition?",
+      "questionType": "mcq_single",
+      "options": [
+        "Prophet Muhammad (PBUH)",
+        "Abu Bakr",
+        "Every rightly guided caliph",
+        "No one exclusively"
+      ],
+      "correctAnswers": ["Every rightly guided caliph"],
+      "points": 1,
+      "order": 24
+    },
+    {
+      "questionText": "Who among these was NOT one of the Rightly Guided Caliphs?",
+      "questionType": "mcq_single",
+      "options": ["Ali", "Umar", "Yazid", "Uthman"],
+      "correctAnswers": ["Yazid"],
+      "points": 1,
+      "order": 25
+    },
+    {
+      "questionText": "The Farewell Sermon of the Prophet (PBUH) is called?",
+      "questionType": "mcq_single",
+      "options": [
+        "Khutbah al-Wida",
+        "Khutbah al-Hijrah",
+        "Khutbah al-Aqabah",
+        "Khutbah al-Hudaibiyah"
+      ],
+      "correctAnswers": ["Khutbah al-Wida"],
+      "points": 2,
+      "order": 26
+    },
+    {
+      "questionText": "Which caliph was assassinated while praying in a mosque?",
+      "questionType": "mcq_single",
+      "options": ["Umar", "Ali", "Uthman", "Abu Bakr"],
+      "correctAnswers": ["Umar"],
+      "points": 1,
+      "order": 27
+    },
+    {
+      "questionText": "Which year did Prophet Muhammad (PBUH) migrate to Madinah?",
+      "questionType": "mcq_single",
+      "options": ["610 CE", "615 CE", "622 CE", "632 CE"],
+      "correctAnswers": ["622 CE"],
+      "points": 1,
+      "order": 28
+    },
+    {
+      "questionText": "Who was the youngest to accept Islam among these?",
+      "questionType": "mcq_single",
+      "options": ["Abu Bakr", "Umar", "Ali", "Uthman"],
+      "correctAnswers": ["Ali"],
+      "points": 1,
+      "order": 29
+    },
+   
+    {
+      "questionText": "Select the battles fought during the Prophet's (PBUH) lifetime. (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": ["Battle of Badr", "Battle of Uhud", "Battle of Qadisiyyah", "Battle of Khandaq"],
+      "correctAnswers": ["Battle of Badr", "Battle of Uhud", "Battle of Khandaq"],
+      "points": 3,
+      "order": 30
+    },
+    {
+      "questionText": "Which companions played a major role in the Ridda wars? (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Khalid bin Walid",
+        "Ali ibn Abi Talib",
+        "Abu Ubaidah ibn Jarrah",
+        "Amr ibn al-As"
+      ],
+      "correctAnswers": ["Khalid bin Walid", "Abu Ubaidah ibn Jarrah"],
+      "points": 3,
+      "order": 31
+    },
+    {
+      "questionText": "Select the statements that accurately describe Abu Bakr’s leadership. (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "He led successfully during the Ridda wars",
+        "He expanded the treasury by looting",
+        "He sent Usama's army as ordered by the Prophet (PBUH)",
+        "He neglected the compilation of the Quran"
+      ],
+      "correctAnswers": [
+        "He led successfully during the Ridda wars",
+        "He sent Usama's army as ordered by the Prophet (PBUH)"
+      ],
+      "points": 3,
+      "order": 32
+    },
+    {
+      "questionText": "Identify two major empires defeated by Muslims after Prophethood. (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Byzantine Empire",
+        "Sasanian Empire",
+        "Roman Empire",
+        "Ottoman Empire"
+      ],
+      "correctAnswers": ["Byzantine Empire", "Sasanian Empire"],
+      "points": 3,
+      "order": 33
+    },
+    {
+      "questionText": "Which titles are associated with Prophet Muhammad (PBUH) in Makkah? (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": ["Sadiq", "Ameen", "Al-Farooq", "Zun-Nurain"],
+      "correctAnswers": ["Sadiq", "Ameen"],
+      "points": 2,
+      "order": 34
+    },
+    {
+      "questionText": "Who participated in the construction of Masjid Nabawi? (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Prophet Muhammad (PBUH)",
+        "Abu Bakr",
+        "Umar",
+        "All companions"
+      ],
+      "correctAnswers": [
+        "Prophet Muhammad (PBUH)",
+        "All companions"
+      ],
+      "points": 2,
+      "order": 35
+    },
+    {
+      "questionText": "Select the correct capitals of the caliphate era. (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Makkah",
+        "Kufa",
+        "Madinah",
+        "Damascus"
+      ],
+      "correctAnswers": ["Kufa", "Madinah"],
+      "points": 2,
+      "order": 36
+    },
+    {
+      "questionText": "Quranic verses about Khilafat mention which terms? (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Khalifah",
+        "Imam",
+        "Caliph",
+        "Mujtahid"
+      ],
+      "correctAnswers": ["Khalifah", "Imam"],
+      "points": 2,
+      "order": 37
+    },
+    {
+      "questionText": "Who was from the Ashra Mubashra (ten given glad tidings)? (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Abu Bakr",
+        "Umar",
+        "Ali",
+        "All above"
+      ],
+      "correctAnswers": ["Abu Bakr", "Umar", "Ali"],
+      "points": 2,
+      "order": 38
+    },
+    {
+      "questionText": "Select the caliphs who were assassinated. (Select all that apply)",
+      "questionType": "mcq_multiple",
+      "options": [
+        "Abu Bakr",
+        "Umar",
+        "Uthman",
+        "Ali"
+      ],
+      "correctAnswers": ["Umar", "Uthman", "Ali"],
+      "points": 2,
+      "order": 39
     }
   ],
-  "exportedAt": "2024-01-15T10:30:00.000Z",
+  "exportedAt": "2025-09-08T08:52:00.000Z",
   "version": "1.0"
 }

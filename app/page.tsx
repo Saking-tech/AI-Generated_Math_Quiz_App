@@ -8,7 +8,7 @@ import { useMutation } from "convex/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlusCircle, BookOpen, Users, Trophy } from "lucide-react";
+import { PlusCircle, BookOpen, Users, Trophy, TrendingUp } from "lucide-react";
 
 export default function Home() {
   const { user, isLoaded } = useUser();
@@ -108,7 +108,7 @@ export default function Home() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {/* Quiz Master Section */}
           {userData?.role === "quiz-master" && (
             <Card>
@@ -146,6 +146,24 @@ export default function Home() {
             <CardContent>
               <Button asChild className="w-full">
                 <Link href="/quizzes">Browse Quizzes</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Leaderboard Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <TrendingUp className="h-5 w-5 mr-2" />
+                Leaderboard
+              </CardTitle>
+              <CardDescription>
+                See how you rank against other quiz takers
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button asChild className="w-full">
+                <Link href="/leaderboard">View Leaderboard</Link>
               </Button>
             </CardContent>
           </Card>

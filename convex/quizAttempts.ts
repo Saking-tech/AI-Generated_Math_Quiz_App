@@ -160,3 +160,160 @@ export const getAttemptDetails = query({
     };
   },
 });
+
+export const getGlobalLeaderboard = query({
+  args: { limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit || 10;
+    
+    // Get all completed quiz attempts
+    const attempts = await ctx.db
+      .query("quizAttempts")
+      .filter((q) => q.eq(q.field("isCompleted"), true))
+      .collect();
+
+    // Group by user and calculate total score and quiz count
+    const userStats = new Map();
+    
+    for (const attempt of attempts) {
+      const userId = attempt.userId;
+      const user = await ctx.db.get(userId);
+      
+      if (!user) continue;
+      
+      if (!userStats.has(userId)) {
+        userStats.set(userId, {
+          userId,
+          userName: user.name,
+          userEmail: user.email,
+          totalScore: 0,
+          totalQuizzes: 0,
+          averageScore: 0,
+          bestScore: 0,
+          lastAttempt: 0,
+        });
+      }
+      
+      const stats = userStats.get(userId);
+      stats.totalScore += attempt.score;
+      stats.totalQuizzes += 1;
+      stats.bestScore = Math.max(stats.bestScore, attempt.score);
+      stats.lastAttempt = Math.max(stats.lastAttempt, attempt.completedAt || 0);
+    }
+    
+    // Calculate average scores and sort by total score
+    const leaderboard = Array.from(userStats.values())
+      .map(stats => ({
+        ...stats,
+        averageScore: stats.totalQuizzes > 0 ? stats.totalScore / stats.totalQuizzes : 0,
+      }))
+      .sort((a, b) => b.totalScore - a.totalScore)
+      .slice(0, limit);
+    
+    return leaderboard;
+  },
+});
+
+export const getQuizLeaderboard = query({
+  args: { quizId: v.id("quizzes"), limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit || 10;
+    
+    // Get all completed attempts for this quiz
+    const attempts = await ctx.db
+      .query("quizAttempts")
+      .withIndex("by_quiz", (q) => q.eq("quizId", args.quizId))
+      .filter((q) => q.eq(q.field("isCompleted"), true))
+      .order("desc")
+      .collect();
+
+    // Get user details and sort by score
+    const leaderboard = await Promise.all(
+      attempts.slice(0, limit).map(async (attempt) => {
+        const user = await ctx.db.get(attempt.userId);
+        return {
+          attemptId: attempt._id,
+          userId: attempt.userId,
+          userName: user?.name || "Unknown User",
+          userEmail: user?.email || "",
+          score: attempt.score,
+          totalPoints: attempt.totalPoints,
+          percentage: attempt.totalPoints > 0 ? (attempt.score / attempt.totalPoints) * 100 : 0,
+          completedAt: attempt.completedAt || 0,
+          timeTaken: attempt.completedAt ? attempt.completedAt - attempt.startedAt : 0,
+        };
+      })
+    );
+    
+    return leaderboard;
+  },
+});
+
+export const getUserStats = query({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    const attempts = await ctx.db
+      .query("quizAttempts")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .filter((q) => q.eq(q.field("isCompleted"), true))
+      .collect();
+
+    if (attempts.length === 0) {
+      return {
+        totalQuizzes: 0,
+        totalScore: 0,
+        averageScore: 0,
+        bestScore: 0,
+        rank: null,
+        recentAttempts: [],
+      };
+    }
+
+    const totalScore = attempts.reduce((sum, attempt) => sum + attempt.score, 0);
+    const bestScore = Math.max(...attempts.map(attempt => attempt.score));
+    const averageScore = totalScore / attempts.length;
+
+    // Get recent attempts with quiz info
+    const recentAttempts = await Promise.all(
+      attempts
+        .sort((a, b) => (b.completedAt || 0) - (a.completedAt || 0))
+        .slice(0, 5)
+        .map(async (attempt) => {
+          const quiz = await ctx.db.get(attempt.quizId);
+          return {
+            ...attempt,
+            quiz,
+          };
+        })
+    );
+
+    // Calculate global rank
+    const allAttempts = await ctx.db
+      .query("quizAttempts")
+      .filter((q) => q.eq(q.field("isCompleted"), true))
+      .collect();
+
+    const userStats = new Map();
+    for (const attempt of allAttempts) {
+      const userId = attempt.userId;
+      if (!userStats.has(userId)) {
+        userStats.set(userId, 0);
+      }
+      userStats.set(userId, userStats.get(userId) + attempt.score);
+    }
+
+    const sortedUsers = Array.from(userStats.entries())
+      .sort((a, b) => b[1] - a[1]);
+    
+    const rank = sortedUsers.findIndex(([userId]) => userId === args.userId) + 1;
+
+    return {
+      totalQuizzes: attempts.length,
+      totalScore,
+      averageScore,
+      bestScore,
+      rank,
+      recentAttempts,
+    };
+  },
+});

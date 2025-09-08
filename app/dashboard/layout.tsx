@@ -59,6 +59,9 @@ export default function DashboardLayout({
                 <Link href="/dashboard/create-quiz" className="text-gray-600 hover:text-gray-900">
                   Create Quiz
                 </Link>
+                <Link href="/dashboard/leaderboard" className="text-gray-600 hover:text-gray-900">
+                  Leaderboard
+                </Link>
                 <Link href="/dashboard/import-export" className="text-gray-600 hover:text-gray-900">
                   Import/Export
                 </Link>

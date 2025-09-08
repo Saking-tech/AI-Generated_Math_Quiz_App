@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { calculatePercentage, formatDateTime } from "@/lib/utils";
 import { CheckCircle, XCircle, Award, Home } from "lucide-react";
+import { Leaderboard } from "@/components/quiz/Leaderboard";
 
 export default function QuizResultPage() {
   const params = useParams();
@@ -24,10 +25,11 @@ export default function QuizResultPage() {
   const percentage = calculatePercentage(attempt.score, attempt.totalPoints);
   
   const getGrade = (percentage: number) => {
-    if (percentage >= 90) return { grade: 'A', color: 'text-green-600' };
-    if (percentage >= 80) return { grade: 'B', color: 'text-blue-600' };
-    if (percentage >= 70) return { grade: 'C', color: 'text-yellow-600' };
-    if (percentage >= 60) return { grade: 'D', color: 'text-orange-600' };
+    if (percentage >= 90) return { grade: 'EX', color: 'text-green-600' };
+    if (percentage >= 80) return { grade: 'A', color: 'text-blue-600' };
+    if (percentage >= 70) return { grade: 'B', color: 'text-blue-400' };
+    if (percentage >= 60) return { grade: 'C', color: 'text-yellow-600' };
+    if (percentage >= 50) return { grade: 'D', color: 'text-orange-600' };
     return { grade: 'F', color: 'text-red-600' };
   };
 
@@ -193,6 +195,18 @@ export default function QuizResultPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Quiz Leaderboard */}
+          {attempt.quiz && (
+            <Card>
+              <CardHeader>
+                <CardTitle>How You Rank</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Leaderboard quizId={attempt.quiz._id} showGlobal={false} limit={10} />
+              </CardContent>
+            </Card>
+          )}
 
           {/* Actions */}
           <div className="flex justify-center space-x-4">
