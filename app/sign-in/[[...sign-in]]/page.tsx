@@ -1,3 +1,4 @@
+"use client";
 import { SignIn } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
