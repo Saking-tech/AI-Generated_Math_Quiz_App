@@ -12,6 +12,12 @@ export const metadata: Metadata = {
   description: 'A comprehensive quiz platform for creating and taking quizzes',
 }
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+}
+
 export default function RootLayout({
   children,
 }: {

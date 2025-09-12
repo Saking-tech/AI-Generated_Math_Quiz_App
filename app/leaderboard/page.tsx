@@ -70,13 +70,13 @@ export default function PublicLeaderboardPage() {
           {/* User Stats - Only show if user is logged in */}
           {user && userData && (
             <div className="lg:col-span-1">
-              <Card>
+              <Card className="bg-purple-200">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
+                  <CardTitle className="flex items-center bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">
                     <TrendingUp className="h-5 w-5 mr-2" />
                     Your Performance
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-gray-700">
                     Your quiz statistics and achievements
                   </CardDescription>
                 </CardHeader>
@@ -162,11 +162,11 @@ export default function PublicLeaderboardPage() {
         {/* Call to Action for non-logged in users */}
         {!user && (
           <div className="mt-8">
-            <Card>
+            <Card className="bg-purple-200">
               <CardContent className="text-center py-8">
                 <Trophy className="h-16 w-16 mx-auto mb-4 text-yellow-500" />
-                <h3 className="text-xl font-bold mb-2">Join the Competition!</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Join the Competition!</h3>
+                <p className="text-gray-700 mb-6">
                   Sign up to take quizzes and see how you rank on the leaderboard.
                 </p>
                 <div className="space-x-4">

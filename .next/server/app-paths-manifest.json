@@ -1,8 +1,5 @@
 {
   "/page": "app/page.js",
-  "/upgrade/page": "app/upgrade/page.js",
-  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
-  "/dashboard/create-quiz/page": "app/dashboard/create-quiz/page.js",
-  "/dashboard/leaderboard/page": "app/dashboard/leaderboard/page.js",
-  "/dashboard/import-export/page": "app/dashboard/import-export/page.js"
+  "/sign-in/[[...sign-in]]/page": "app/sign-in/[[...sign-in]]/page.js",
+  "/profile/page": "app/profile/page.js"
 }

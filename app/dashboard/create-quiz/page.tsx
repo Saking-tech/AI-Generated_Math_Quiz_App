@@ -55,9 +55,9 @@ export default function CreateQuizPage() {
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-8">Create New Quiz</h1>
       
-      <Card>
+      <Card className="bg-purple-200">
         <CardHeader>
-          <CardTitle>Quiz Details</CardTitle>
+          <CardTitle className="bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Quiz Details</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">

@@ -43,11 +43,11 @@ export default function MyResultsPage() {
 
       <div className="container mx-auto px-4 py-8 relative z-10">
         {completedAttempts.length === 0 ? (
-          <Card className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-xl border border-purple-400/30">
+          <Card className="bg-purple-200 backdrop-blur-xl border border-purple-300/50">
             <CardContent className="text-center py-8">
               <Trophy className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium mb-2 text-white">No quiz results yet</h3>
-              <p className="text-purple-200 mb-4">Take your first quiz to see your results here!</p>
+              <h3 className="text-lg font-medium mb-2 bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">No quiz results yet</h3>
+              <p className="text-gray-700 mb-4">Take your first quiz to see your results here!</p>
               <Button asChild className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                 <Link href="/quizzes">Browse Quizzes</Link>
               </Button>
@@ -56,9 +56,9 @@ export default function MyResultsPage() {
         ) : (
           <div className="space-y-6">
             {/* Statistics */}
-            <Card>
+            <Card className="bg-purple-200">
               <CardHeader>
-                <CardTitle>Statistics</CardTitle>
+                <CardTitle className="bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Statistics</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -104,10 +104,10 @@ export default function MyResultsPage() {
                 };
 
                 return (
-                  <Card key={attempt._id}>
+                  <Card key={attempt._id} className="bg-purple-200">
                     <CardHeader>
-                      <CardTitle className="text-lg">{attempt.quiz?.title}</CardTitle>
-                      <CardDescription>
+                      <CardTitle className="text-lg bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">{attempt.quiz?.title}</CardTitle>
+                      <CardDescription className="text-gray-700">
                         Completed: {formatDateTime(attempt.completedAt || Date.now())}
                       </CardDescription>
                     </CardHeader>

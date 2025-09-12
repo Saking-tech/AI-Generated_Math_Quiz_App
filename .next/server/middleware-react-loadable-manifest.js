@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components\\\\SimpleBackground.tsx -> @/components/ui/HyperSpeed\":{\"id\":\"components\\\\SimpleBackground.tsx -> @/components/ui/HyperSpeed\",\"files\":[\"static/chunks/_app-pages-browser_components_ui_HyperSpeed_tsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"
