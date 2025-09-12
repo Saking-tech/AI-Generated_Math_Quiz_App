@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app\\\\page.tsx -> @/components/TextType\":{\"id\":\"app\\\\page.tsx -> @/components/TextType\",\"files\":[\"static/chunks/_app-pages-browser_components_TextType_tsx.js\"]}}"
