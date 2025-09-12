@@ -4,7 +4,8 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Upload, FileText, AlertCircle } from "lucide-react";
+import { Upload, FileText, AlertCircle, FileJson, FileCode, CheckCircle } from "lucide-react";
+import GlassSurface from "@/components/GlassSurface";
 
 interface FileUploadProps {
   onFileUpload: (content: string, filename: string, type: 'json' | 'markdown') => void;
@@ -87,84 +88,148 @@ export function FileUpload({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center">
-          <Upload className="h-5 w-5 mr-2" />
-          Import Quiz
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div
-          className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
-            dragActive
-              ? 'border-blue-500 bg-blue-50'
-              : 'border-gray-300 hover:border-gray-400'
-          }`}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
+    <div className="space-y-6">
+      {/* Drag and Drop Area */}
+      <div
+        className={`border-2 border-dashed rounded-2xl p-8 mobile:p-12 text-center transition-all duration-300 ${
+          dragActive
+            ? 'border-emerald-400 bg-emerald-500/10 backdrop-blur-sm'
+            : 'border-purple-400/30 hover:border-purple-400/50 bg-white/5 hover:bg-white/10'
+        }`}
+        onDragEnter={handleDrag}
+        onDragLeave={handleDrag}
+        onDragOver={handleDrag}
+        onDrop={handleDrop}
+      >
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept={acceptedTypes.join(',')}
+          onChange={handleFileInput}
+          className="hidden"
+        />
+        
+        <div className="space-y-6">
+          {/* Upload Icon */}
+          <div className="w-20 h-20 mobile:w-24 mobile:h-24 mx-auto bg-gradient-to-r from-emerald-600/20 to-teal-600/20 rounded-full flex items-center justify-center border border-emerald-400/30">
+            <Upload className="h-10 w-10 mobile:h-12 mobile:w-12 text-emerald-300" />
+          </div>
+          
+          {/* Upload Text */}
+          <div>
+            <h3 className="text-xl mobile:text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-2">
+              Drop your quiz file here
+            </h3>
+            <p className="text-mobile-body text-gray-300">
+              Supports JSON and Markdown formats
+            </p>
+          </div>
+          
+          {/* Upload Button */}
+          <div className="space-y-3">
+            <Button 
+              onClick={openFileDialog}
+              disabled={uploading}
+              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white border-0 px-8 py-4 rounded-xl font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {uploading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <FileText className="h-5 w-5 mr-2" />
+                  Choose File
+                </>
+              )}
+            </Button>
+            
+            <p className="text-sm text-gray-400">
+              Max file size: {maxSizeKB}KB | Formats: {acceptedTypes.join(', ')}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Error Message */}
+      {error && (
+        <GlassSurface
+          width="100%"
+          height="auto"
+          borderRadius={15}
+          backgroundOpacity={0.1}
+          opacity={0.9}
+          blur={10}
+          className="p-4 bg-red-500/10 border border-red-400/30"
         >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept={acceptedTypes.join(',')}
-            onChange={handleFileInput}
-            className="hidden"
-          />
+          <div className="flex items-start">
+            <AlertCircle className="h-6 w-6 text-red-400 mr-3 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-red-300 mb-1">Upload Error</p>
+              <p className="text-sm text-red-200">{error}</p>
+            </div>
+          </div>
+        </GlassSurface>
+      )}
+
+      {/* Supported Formats */}
+      <GlassSurface
+        width="100%"
+        height="auto"
+        borderRadius={15}
+        backgroundOpacity={0.1}
+        opacity={0.9}
+        blur={10}
+        className="p-6 bg-purple-300/20"
+      >
+        <div className="space-y-4">
+          <h4 className="text-lg font-semibold text-purple-300 mb-4">Supported Formats</h4>
           
           <div className="space-y-4">
-            <FileText className="h-12 w-12 text-gray-400 mx-auto" />
-            
-            <div>
-              <p className="text-lg font-medium text-gray-900">
-                Drop your quiz file here
-              </p>
-              <p className="text-sm text-gray-600">
-                Supports JSON and Markdown formats
-              </p>
+            {/* JSON Format */}
+            <div className="flex items-start space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-lg flex items-center justify-center border border-blue-400/30 flex-shrink-0">
+                <FileJson className="h-5 w-5 text-blue-300" />
+              </div>
+              <div>
+                <h5 className="font-semibold text-blue-300 mb-1">JSON Format</h5>
+                <p className="text-sm text-gray-300">
+                  Complete quiz export with all questions and metadata. Perfect for technical users and data exchange.
+                </p>
+              </div>
             </div>
-            
-            <div className="space-y-2">
-              <Button 
-                onClick={openFileDialog}
-                disabled={uploading}
-                variant="outline"
-              >
-                {uploading ? 'Processing...' : 'Choose File'}
-              </Button>
-              
-              <p className="text-xs text-gray-500">
-                Max file size: {maxSizeKB}KB | Formats: {acceptedTypes.join(', ')}
-              </p>
+
+            {/* Markdown Format */}
+            <div className="flex items-start space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-green-600/20 to-emerald-600/20 rounded-lg flex items-center justify-center border border-green-400/30 flex-shrink-0">
+                <FileCode className="h-5 w-5 text-green-300" />
+              </div>
+              <div>
+                <h5 className="font-semibold text-green-300 mb-1">Markdown Format</h5>
+                <p className="text-sm text-gray-300">
+                  Human-readable format with questions and answers. Great for documentation and easy editing.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Format Tips */}
+          <div className="mt-6 p-4 bg-white/5 rounded-xl border border-purple-400/20">
+            <div className="flex items-start space-x-2">
+              <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-emerald-300 mb-1">Pro Tips</p>
+                <ul className="text-xs text-gray-300 space-y-1">
+                  <li>• JSON files should contain valid quiz data structure</li>
+                  <li>• Markdown files should have clear question and answer formatting</li>
+                  <li>• Both formats support multiple choice and open-ended questions</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-
-        {error && (
-          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start">
-            <AlertCircle className="h-5 w-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm font-medium text-red-800">Upload Error</p>
-              <p className="text-sm text-red-600">{error}</p>
-            </div>
-          </div>
-        )}
-
-        <div className="mt-6 space-y-3">
-          <Label className="text-sm font-medium">Supported Formats:</Label>
-          
-          <div className="space-y-2 text-sm text-gray-600">
-            <div>
-              <span className="font-medium">JSON Format:</span> Complete quiz export with all questions and metadata
-            </div>
-            <div>
-              <span className="font-medium">Markdown Format:</span> Human-readable format with questions and answers
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      </GlassSurface>
+    </div>
   );
 }

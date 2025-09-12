@@ -10,11 +10,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import GlassSurface from "@/components/GlassSurface";
+import TextType from "@/components/TextType";
+import DotGrid from "@/components/DotGrid";
+import { Plus, ArrowLeft, BookOpen } from "lucide-react";
+import Link from "next/link";
 
 export default function CreateQuizPage() {
   const { user } = useUser();
   const router = useRouter();
-  const userData = useQuery(api.users.getUserByClerkId, 
+  const userData = useQuery(api.users.getUserByClerkId,
     user ? { clerkId: user.id } : "skip"
   );
   const createQuiz = useMutation(api.quizzes.createQuiz);
@@ -38,7 +43,7 @@ export default function CreateQuizPage() {
         duration: formData.duration ? parseInt(formData.duration) : undefined,
         createdBy: userData._id,
       });
-      
+
       router.push(`/dashboard/quizzes/${quizId}`);
     } catch (error) {
       console.error("Error creating quiz:", error);
@@ -52,68 +57,121 @@ export default function CreateQuizPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Create New Quiz</h1>
-      
-      <Card className="bg-purple-200">
-        <CardHeader>
-          <CardTitle className="bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Quiz Details</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="title">Quiz Title *</Label>
-              <Input
-                id="title"
-                type="text"
-                placeholder="Enter quiz title"
-                value={formData.title}
-                onChange={(e) => handleChange("title", e.target.value)}
-                required
-              />
-            </div>
+    <div className="min-h-screen relative">
+      {/* Content */}
+      <div className="relative z-10 mobile-padding tablet-padding desktop-padding py-8 mobile:py-12">
+        {/* Header Section */}
+        <div className="text-center mb-8 mobile:mb-12">
+          <h1 className="text-mobile-hero font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+            <TextType
+              text={["Create New Quiz", "Build Your Quiz", "Design Your Quiz", "Craft Your Quiz"]}
+              typingSpeed={80}
+              className="text-center"
+            />
+          </h1>
 
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                placeholder="Enter quiz description (optional)"
-                value={formData.description}
-                onChange={(e) => handleChange("description", e.target.value)}
-                rows={3}
-              />
-            </div>
+          <p className="text-mobile-body text-gray-300 max-w-2xl mx-auto">
+            Start building your next amazing quiz experience with our intuitive creation tools
+          </p>
+        </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="duration">Duration (minutes)</Label>
-              <Input
-                id="duration"
-                type="number"
-                placeholder="Enter duration in minutes (optional)"
-                value={formData.duration}
-                onChange={(e) => handleChange("duration", e.target.value)}
-                min="1"
-              />
-            </div>
+        {/* Form Container */}
+        <div className="max-w-6xl mx-auto">
+          <GlassSurface
+            width="100%"
+            height="auto"
+            borderRadius={20}
+            backgroundOpacity={0.7}
+            opacity={0.9}
+            blur={20}
+            blueOffset={50}
+            className="p-6 mobile:p-8 bg-purple-300/20"
+          >
+            {/* 2x2 Form Grid - Below Header */}
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mobile:gap-8">
+                {/* Quiz Title - Top Left */}
+                <div className="space-y-3">
+                  <Label htmlFor="title" className="text-lg font-semibold text-purple-300">
+                    Quiz Title *
+                  </Label>
+                  <Input
+                    id="title"
+                    type="text"
+                    placeholder="Enter an engaging quiz title"
+                    value={formData.title}
+                    onChange={(e) => handleChange("title", e.target.value)}
+                    required
+                    className="h-12 bg-white/10 border-purple-400/30 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-base"
+                  />
+                </div>
 
-            <div className="flex space-x-4">
-              <Button 
-                type="submit" 
-                disabled={isCreating || !formData.title.trim()}
-              >
-                {isCreating ? "Creating..." : "Create Quiz"}
-              </Button>
-              <Button 
-                type="button" 
-                variant="outline"
-                onClick={() => router.back()}
-              >
-                Cancel
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+                {/* Duration - Top Right */}
+                <div className="space-y-3">
+                  <Label htmlFor="duration" className="text-lg font-semibold text-purple-300">
+                    Duration (minutes)
+                  </Label>
+                  <Input
+                    id="duration"
+                    type="number"
+                    placeholder="How long should this quiz take? (optional)"
+                    value={formData.duration}
+                    onChange={(e) => handleChange("duration", e.target.value)}
+                    min="1"
+                    className="h-12 bg-white/10 border-purple-400/30 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-base"
+                  />
+                </div>
+
+                {/* Description - Bottom Left */}
+                <div className="space-y-3 md:col-span-2">
+                  <Label htmlFor="description" className="text-lg font-semibold text-purple-300">
+                    Description
+                  </Label>
+                  <Textarea
+                    id="description"
+                    placeholder="Describe what this quiz is about (optional)"
+                    value={formData.description}
+                    onChange={(e) => handleChange("description", e.target.value)}
+                    rows={4}
+                    className="bg-white/10 border-purple-400/30 text-white placeholder-gray-400 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 resize-none text-base"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons - Below Grid */}
+              <div className="flex flex-col mobile:flex-row gap-4 pt-6">
+                <Button
+                  type="submit"
+                  disabled={isCreating || !formData.title.trim()}
+                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {isCreating ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                      Creating Quiz...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="h-5 w-5 mr-3" />
+                      Create Quiz
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.back()}
+                  className="flex-1 mobile:flex-none bg-transparent border-purple-400/30 text-purple-300 hover:bg-purple-600/20 hover:text-white px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105"
+                >
+                  <ArrowLeft className="h-5 w-5 mr-3" />
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          </GlassSurface>
+        </div>
+      </div>
     </div>
   );
 }

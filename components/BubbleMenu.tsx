@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import GlassSurface from './GlassSurface';
 
 type MenuItem = {
   label: string;
@@ -11,6 +12,7 @@ type MenuItem = {
     bgColor?: string;
     textColor?: string;
   };
+  onClick?: () => void;
 };
 
 export type BubbleMenuProps = {
@@ -91,10 +93,9 @@ export default function BubbleMenu({
 
   const containerClassName = [
     'bubble-menu',
-    useFixedPosition ? 'fixed' : 'absolute',
-    'left-0 right-0 top-8',
-    'flex items-center justify-between',
-    'gap-4 px-8',
+    'relative',
+    'flex items-center justify-end',
+    'gap-4',
     'pointer-events-none',
     'z-[1001]',
     className
@@ -199,12 +200,11 @@ export default function BubbleMenu({
             transform: rotate(var(--item-rot));
           }
           .bubble-menu-items .pill-link:hover {
-            transform: rotate(var(--item-rot)) scale(1.06);
-            background: var(--hover-bg) !important;
+            transform: rotate(var(--item-rot)) scale(1.05);
             color: var(--hover-color) !important;
           }
           .bubble-menu-items .pill-link:active {
-            transform: rotate(var(--item-rot)) scale(.94);
+            transform: rotate(var(--item-rot)) scale(.95);
           }
         }
         @media (max-width: 899px) {
@@ -221,44 +221,44 @@ export default function BubbleMenu({
             overflow: visible;
           }
           .bubble-menu-items .pill-link {
-            font-size: clamp(1.2rem, 3vw, 4rem);
+            font-size: clamp(1.2rem, 3vw, 3.5rem);
             padding: clamp(1rem, 2vw, 2rem) 0;
             min-height: 80px !important;
           }
           .bubble-menu-items .pill-link:hover {
-            transform: scale(1.06);
-            background: var(--hover-bg);
+            transform: scale(1.05);
             color: var(--hover-color);
           }
           .bubble-menu-items .pill-link:active {
-            transform: scale(.94);
+            transform: scale(.95);
           }
         }
       `}</style>
 
       <nav className={containerClassName} style={style} aria-label="Main navigation">
-        <div
+        <GlassSurface
+          width="auto"
+          height="48px"
+          borderRadius={9999}
+          backgroundOpacity={0.1}
+          opacity={0.9}
+          blur={10}
           className={[
             'bubble logo-bubble',
             'inline-flex items-center justify-center',
-            'rounded-full',
-            'bg-white',
-            'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
             'pointer-events-auto',
             'h-12 md:h-14',
-            'px-4 md:px-8',
+            'px-2 md:px-4',
             'gap-2',
             'will-change-transform'
           ].join(' ')}
-          aria-label="Logo"
           style={{
-            background: menuBg,
             minHeight: '48px',
-            borderRadius: '9999px'
+            minWidth: '48px'
           }}
         >
           <span
-            className={['logo-content', 'inline-flex items-center justify-center', 'w-[120px] h-full'].join(' ')}
+            className={['logo-content', 'inline-flex items-center justify-center', 'h-full'].join(' ')}
             style={
               {
                 ['--logo-max-height']: '60%',
@@ -272,7 +272,7 @@ export default function BubbleMenu({
               logo
             )}
           </span>
-        </div>
+        </GlassSurface>
 
         <button
           type="button"
@@ -280,38 +280,50 @@ export default function BubbleMenu({
             'bubble toggle-bubble menu-btn',
             isMenuOpen ? 'open' : '',
             'inline-flex flex-col items-center justify-center',
-            'rounded-full',
-            'bg-white',
-            'shadow-[0_4px_16px_rgba(0,0,0,0.12)]',
             'pointer-events-auto',
             'w-12 h-12 md:w-14 md:h-14',
-            'border-0 cursor-pointer p-0',
-            'will-change-transform'
+            'cursor-pointer',
+            'will-change-transform',
+            'border-0 p-0'
           ].join(' ')}
           onClick={handleToggle}
           aria-label={menuAriaLabel}
           aria-pressed={isMenuOpen}
-          style={{ background: menuBg }}
         >
-          <span
-            className="menu-line block mx-auto rounded-[2px]"
+          <GlassSurface
+            width="100%"
+            height="150%"
+            borderRadius={9999}
+            backgroundOpacity={0.7}
+            opacity={0.9}
+            blur={20}
+            blueOffset={50}
+            className="w-full h-full flex flex-col items-center justify-center"
             style={{
-              width: 26,
-              height: 2,
-              background: menuContentColor,
-              transform: isMenuOpen ? 'translateY(4px) rotate(45deg)' : 'none'
+              minHeight: '48px',
+              minWidth: '48px'
             }}
-          />
-          <span
-            className="menu-line short block mx-auto rounded-[2px]"
-            style={{
-              marginTop: '6px',
-              width: 26,
-              height: 2,
-              background: menuContentColor,
-              transform: isMenuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none'
-            }}
-          />
+          >
+            <span
+              className="menu-line block mx-auto rounded-[2px]"
+              style={{
+                width: 26,
+                height: 2,
+                background: menuContentColor,
+                transform: isMenuOpen ? 'translateY(4px) rotate(45deg)' : 'none'
+              }}
+            />
+            <span
+              className="menu-line short block mx-auto rounded-[2px]"
+              style={{
+                marginTop: '6px',
+                width: 26,
+                height: 2,
+                background: menuContentColor,
+                transform: isMenuOpen ? 'translateY(-4px) rotate(-45deg)' : 'none'
+              }}
+            />
+          </GlassSurface>
         </button>
       </nav>
 
@@ -320,7 +332,7 @@ export default function BubbleMenu({
           ref={overlayRef}
           className={[
             'bubble-menu-items',
-            useFixedPosition ? 'fixed' : 'absolute',
+            'fixed',
             'inset-0',
             'flex items-center justify-center',
             'pointer-events-none',
@@ -355,34 +367,37 @@ export default function BubbleMenu({
                   role="menuitem"
                   href={item.href}
                   aria-label={item.ariaLabel || item.label}
+                  onClick={(e) => {
+                    if (item.onClick) {
+                      e.preventDefault();
+                      item.onClick();
+                    }
+                  }}
                   className={[
                     'pill-link',
                     'w-full',
-                    'rounded-[999px]',
                     'no-underline',
-                    'bg-white',
-                    'text-inherit',
-                    'shadow-[0_4px_14px_rgba(0,0,0,0.10)]',
                     'flex items-center justify-center',
                     'relative',
-                    'transition-[background,color] duration-300 ease-in-out',
+                    'transition-all duration-300 ease-in-out',
                     'box-border',
-                    'whitespace-nowrap overflow-hidden'
+                    'whitespace-nowrap overflow-hidden',
+                    'cursor-pointer',
+                    'font-medium'
                   ].join(' ')}
                   style={
                     {
                       ['--item-rot']: `${item.rotation ?? 0}deg`,
                       ['--pill-bg']: menuBg,
                       ['--pill-color']: menuContentColor,
-                      ['--hover-bg']: item.hoverStyles?.bgColor || '#f3f4f6',
-                      ['--hover-color']: item.hoverStyles?.textColor || menuContentColor,
-                      background: 'var(--pill-bg)',
+                      ['--hover-bg']: item.hoverStyles?.bgColor || 'rgba(139, 92, 246, 0.3)',
+                      ['--hover-color']: item.hoverStyles?.textColor || '#ffffff',
                       color: 'var(--pill-color)',
                       minHeight: 'var(--pill-min-h, 160px)',
                       padding: 'clamp(1.5rem, 3vw, 8rem) 0',
-                      fontSize: 'clamp(1.5rem, 4vw, 4rem)',
-                      fontWeight: 400,
-                      lineHeight: 0,
+                      fontSize: 'clamp(1.2rem, 3vw, 3.5rem)',
+                      fontWeight: 500,
+                      lineHeight: 1.2,
                       willChange: 'transform',
                       height: 10
                     } as CSSProperties
@@ -391,19 +406,30 @@ export default function BubbleMenu({
                     if (el) bubblesRef.current[idx] = el;
                   }}
                 >
-                  <span
-                    className="pill-label inline-block"
-                    style={{
-                      willChange: 'transform, opacity',
-                      height: '1.2em',
-                      lineHeight: 1.2
-                    }}
-                    ref={el => {
-                      if (el) labelRefs.current[idx] = el;
-                    }}
+                  <GlassSurface
+                    width="100%"
+                    height="100%"
+                    borderRadius={9999}
+                    backgroundOpacity={0.7}
+                    opacity={0.9}
+                    blur={20}
+                    blueOffset={50}
+                    className="w-full h-full flex items-center justify-center absolute inset-0"
                   >
-                    {item.label}
-                  </span>
+                    <span
+                      className="pill-label inline-block relative z-10"
+                      style={{
+                        willChange: 'transform, opacity',
+                        height: '1.2em',
+                        lineHeight: 1.2
+                      }}
+                      ref={el => {
+                        if (el) labelRefs.current[idx] = el;
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                  </GlassSurface>
                 </a>
               </li>
             ))}

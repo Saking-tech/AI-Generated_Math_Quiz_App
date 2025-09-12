@@ -101,6 +101,7 @@ const TextType = ({
     if (!isVisible) return;
 
     let timeout: NodeJS.Timeout;
+    let animationFrame: number;
 
     const currentText = textArray[currentTextIndex];
     const processedText = reverseMode ? currentText.split('').reverse().join('') : currentText;
@@ -142,13 +143,23 @@ const TextType = ({
       }
     };
 
-    if (currentCharIndex === 0 && !isDeleting && displayedText === '') {
-      timeout = setTimeout(executeTypingAnimation, initialDelay);
-    } else {
-      executeTypingAnimation();
-    }
+    // Use requestAnimationFrame for better performance
+    const scheduleAnimation = () => {
+      animationFrame = requestAnimationFrame(() => {
+        if (currentCharIndex === 0 && !isDeleting && displayedText === '') {
+          timeout = setTimeout(executeTypingAnimation, initialDelay);
+        } else {
+          executeTypingAnimation();
+        }
+      });
+    };
 
-    return () => clearTimeout(timeout);
+    scheduleAnimation();
+
+    return () => {
+      clearTimeout(timeout);
+      cancelAnimationFrame(animationFrame);
+    };
   }, [
     currentCharIndex,
     displayedText,

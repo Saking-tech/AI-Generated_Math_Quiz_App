@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate, formatDuration } from "@/lib/utils";
-import { Clock, FileText, User, Home } from "lucide-react";
-import AuthButton from "@/components/AuthButton";
+import { Clock, FileText, User } from "lucide-react";
 
 export default function QuizzesPage() {
   const quizzes = useQuery(api.quizzes.getPublishedQuizzes);
@@ -21,22 +20,8 @@ export default function QuizzesPage() {
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-4 mobile:py-6">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-center items-center">
             <h1 className="text-mobile-title font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Available Quizzes</h1>
-            <div className="flex items-center space-x-1 mobile:space-x-3">
-              <Button variant="outline" asChild size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300 hidden mobile:inline-flex">
-                <Link href="/">
-                  <Home className="h-4 w-4 mr-2" />
-                  Back to Home
-                </Link>
-              </Button>
-              <Button variant="outline" asChild size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300 mobile:hidden">
-                <Link href="/">
-                  <Home className="h-4 w-4" />
-                </Link>
-              </Button>
-              <AuthButton />
-            </div>
           </div>
         </div>
       </div>
@@ -60,7 +45,7 @@ export default function QuizzesPage() {
                   )}
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="space-y-1 mobile:space-y-2 text-xs mobile:text-sm text-purple-200 mb-3 mobile:mb-4">
+                  <div className="space-y-1 mobile:space-y-2 text-xs mobile:text-sm text-gray-600 mb-3 mobile:mb-4">
                     <div className="flex items-center">
                       <User className="h-3 w-3 mobile:h-4 mobile:w-4 mr-1 mobile:mr-2 flex-shrink-0" />
                       <span className="truncate">Created: {formatDate(quiz.createdAt)}</span>

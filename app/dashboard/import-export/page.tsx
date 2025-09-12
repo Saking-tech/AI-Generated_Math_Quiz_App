@@ -13,7 +13,10 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { parseJsonQuiz, parseMarkdownQuiz, exportToJson, exportToMarkdown } from "@/lib/quizFormatters";
-import { AlertCircle, CheckCircle, ArrowLeft, Upload, Download } from "lucide-react";
+import { AlertCircle, CheckCircle, ArrowLeft, Upload, Download, FileText, Copy, Edit, Calendar, Clock, Globe, Lock, ChevronDown, FileJson, FileCode, Database, Settings } from "lucide-react";
+import GlassSurface from "@/components/GlassSurface";
+import TextType from "@/components/TextType";
+import BlurText from "@/components/BlurText";
 
 export default function ImportExportPage() {
   const { user } = useUser();
@@ -103,76 +106,157 @@ export default function ImportExportPage() {
 
   const selectedQuiz = quizzes?.find(q => q._id === selectedQuizForExport);
 
+  const handleAnimationComplete = () => {
+    console.log('Animation completed!');
+  };
+
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <Button variant="outline" size="sm" asChild className="mb-4">
+    <div className="min-h-screen relative">
+      {/* Content */}
+      <div className="relative z-10 mobile-padding tablet-padding desktop-padding py-8 mobile:py-12">
+        {/* Header Section */}
+        <div className="text-center mb-8 mobile:mb-12">
+          <div className="flex items-center justify-center mb-6">
+            <Button variant="outline" size="sm" asChild className="mr-4">
             <Link href="/dashboard/quizzes">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Quizzes
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold">Import & Export Quizzes</h1>
-          <p className="text-gray-600 mt-2">
-            Import quizzes from files or export your existing quizzes in JSON or Markdown format.
-          </p>
+            <div className="p-3 mobile:p-4 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-2xl border border-purple-400/30">
+              <Database className="h-8 w-8 mobile:h-10 mobile:w-10 text-purple-300" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <h1 className="text-mobile-hero font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+            <TextType
+              text={["Import & Export Quizzes", "Import & Export Quizzes", "Import & Export Quizzes", "Import & Export Quizzes"]}
+              typingSpeed={80}
+              className="text-center"
+            />
+          </h1>
+
+          <BlurText
+            text="Import quizzes from files or export your existing quizzes in multiple formats. Manage your quiz data with ease and flexibility."
+            delay={150}
+            animateBy="words"
+            direction="top"
+            onAnimationComplete={handleAnimationComplete}
+            className="text-mobile-body text-gray-300 max-w-3xl mx-auto text-center"
+          />
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mobile:gap-12">
         {/* Import Section */}
         <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Upload className="h-5 w-5 mr-2" />
+            {/* Import Header Card */}
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={20}
+              backgroundOpacity={0.7}
+              opacity={0.9}
+              blur={20}
+              blueOffset={50}
+              className="p-6 mobile:p-8 bg-purple-300/20"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 mobile:w-20 mobile:h-20 mx-auto mb-4 bg-gradient-to-r from-emerald-600/20 to-teal-600/20 rounded-full flex items-center justify-center border border-emerald-400/30">
+                  <Upload className="h-8 w-8 mobile:h-10 mobile:w-10 text-emerald-300" />
+                </div>
+                <h2 className="text-mobile-title font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-2">
                 Import Quiz
-              </CardTitle>
-              <CardDescription>
-                Upload a quiz file in JSON or Markdown format to import it into your account.
-              </CardDescription>
-            </CardHeader>
-          </Card>
+                </h2>
+                <p className="text-mobile-body text-gray-300">
+                  Upload quiz files in JSON or Markdown format to import them into your account
+                </p>
+              </div>
+            </GlassSurface>
 
+            {/* File Upload Component */}
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={20}
+              backgroundOpacity={0.7}
+              opacity={0.9}
+              blur={20}
+              blueOffset={50}
+              className="p-6 mobile:p-8 bg-purple-300/20"
+            >
           <FileUpload 
             onFileUpload={handleFileUpload}
             acceptedTypes={['.json', '.md', '.txt']}
             maxSizeKB={2048}
           />
+            </GlassSurface>
 
+            {/* Import Status */}
           {importing && (
-            <Card>
-              <CardContent className="text-center py-6">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p>Importing quiz...</p>
-              </CardContent>
-            </Card>
-          )}
+              <GlassSurface
+                width="100%"
+                height="auto"
+                borderRadius={20}
+                backgroundOpacity={0.7}
+                opacity={0.9}
+                blur={20}
+                blueOffset={50}
+                className="p-6 mobile:p-8 bg-purple-300/20"
+              >
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400 mx-auto mb-4"></div>
+                  <h3 className="text-lg font-semibold text-emerald-300 mb-2">Importing Quiz...</h3>
+                  <p className="text-gray-300">Please wait while we process your file</p>
+                </div>
+              </GlassSurface>
+            )}
 
+            {/* Import Result */}
           {importResult && (
-            <Card>
-              <CardContent className="py-4">
-                <div className={`flex items-start ${importResult.success ? 'text-green-800' : 'text-red-800'}`}>
+              <GlassSurface
+                width="100%"
+                height="auto"
+                borderRadius={20}
+                backgroundOpacity={0.7}
+                opacity={0.9}
+                blur={20}
+                blueOffset={50}
+                className="p-6 mobile:p-8 bg-purple-300/20"
+              >
+                <div className={`flex items-start ${importResult.success ? 'text-emerald-300' : 'text-red-300'}`}>
+                  <div className="flex-shrink-0 mr-4">
                   {importResult.success ? (
-                    <CheckCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="h-8 w-8 text-emerald-400" />
                   ) : (
-                    <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
+                      <AlertCircle className="h-8 w-8 text-red-400" />
                   )}
-                  <div>
-                    <p className="font-medium">
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold mb-2">
                       {importResult.success ? 'Import Successful!' : 'Import Failed'}
-                    </p>
-                    <p className="text-sm mt-1">{importResult.message}</p>
+                    </h3>
+                    <p className="text-gray-300 mb-4">{importResult.message}</p>
                     {importResult.success && importResult.quizId && (
-                      <div className="mt-3 space-x-2">
-                        <Button size="sm" asChild>
+                      <div className="flex flex-col mobile:flex-row gap-3">
+                        <Button
+                          asChild
+                          size="sm"
+                          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white border-0 rounded-xl font-medium transition-all duration-300 hover:scale-105"
+                        >
                           <Link href={`/dashboard/quizzes/${importResult.quizId}`}>
+                            <Edit className="h-4 w-4 mr-2" />
                             Edit Quiz
                           </Link>
                         </Button>
-                        <Button size="sm" variant="outline" asChild>
+                        <Button
+                          asChild
+                          variant="outline"
+                          size="sm"
+                          className="bg-transparent border-emerald-400/30 text-emerald-300 hover:bg-emerald-600/20 hover:text-white rounded-xl font-medium transition-all duration-300 hover:scale-105"
+                        >
                           <Link href="/dashboard/quizzes">
+                            <Database className="h-4 w-4 mr-2" />
                             View All Quizzes
                           </Link>
                         </Button>
@@ -180,94 +264,184 @@ export default function ImportExportPage() {
                     )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </GlassSurface>
           )}
         </div>
 
         {/* Export Section */}
         <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Download className="h-5 w-5 mr-2" />
+            {/* Export Header Card */}
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={20}
+              backgroundOpacity={0.7}
+              opacity={0.9}
+              blur={20}
+              blueOffset={50}
+              className="p-6 mobile:p-8 bg-purple-300/20"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 mobile:w-20 mobile:h-20 mx-auto mb-4 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-full flex items-center justify-center border border-blue-400/30">
+                  <Download className="h-8 w-8 mobile:h-10 mobile:w-10 text-blue-300" />
+                </div>
+                <h2 className="text-mobile-title font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent mb-2">
                 Export Quiz
-              </CardTitle>
-              <CardDescription>
-                Select a quiz to export in JSON or Markdown format.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+                </h2>
+                <p className="text-mobile-body text-gray-300">
+                  Select a quiz to export in JSON or Markdown format
+                </p>
+              </div>
+            </GlassSurface>
+
+            {/* Quiz Selection */}
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={20}
+              backgroundOpacity={0.7}
+              opacity={0.9}
+              blur={20}
+              blueOffset={50}
+              className="p-6 mobile:p-8 bg-purple-300/20"
+            >
               <div className="space-y-4">
-                <div>
-                  <Label htmlFor="quiz-select">Select Quiz to Export</Label>
+                <Label htmlFor="quiz-select" className="text-lg font-semibold text-blue-300">
+                  Select Quiz to Export
+                </Label>
+                <div className="relative">
                   <select
                     id="quiz-select"
                     value={selectedQuizForExport}
                     onChange={(e) => setSelectedQuizForExport(e.target.value)}
-                    className="w-full p-2 border rounded-md mt-1"
+                    className="w-full p-4 bg-white/10 border border-blue-400/30 rounded-xl text-white placeholder-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300 appearance-none cursor-pointer"
                   >
-                    <option value="">Choose a quiz...</option>
+                    <option value="" className="bg-gray-800 text-gray-300">Choose a quiz...</option>
                     {quizzes?.map((quiz) => (
-                      <option key={quiz._id} value={quiz._id}>
+                      <option key={quiz._id} value={quiz._id} className="bg-gray-800 text-gray-300">
                         {quiz.title} {quiz.isPublished ? '(Published)' : '(Draft)'}
                       </option>
                     ))}
                   </select>
+                  <ChevronDown className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-blue-300 pointer-events-none" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </GlassSurface>
 
+            {/* Export Buttons */}
           {selectedQuiz && exportQuizData && (
+              <GlassSurface
+                width="100%"
+                height="auto"
+                borderRadius={20}
+                backgroundOpacity={0.7}
+                opacity={0.9}
+                blur={20}
+                blueOffset={50}
+                className="p-6 mobile:p-8 bg-purple-300/20"
+              >
+                <div className="text-center mb-6">
+                  <h3 className="text-lg font-semibold text-blue-300 mb-2">Export Formats</h3>
+                  <p className="text-gray-300">Choose your preferred export format</p>
+                </div>
             <ExportButtons
               quiz={selectedQuiz}
               onExport={handleExportQuiz}
             />
-          )}
+              </GlassSurface>
+            )}
 
-          {/* Quiz Management */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+            {/* Quick Actions */}
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={20}
+              backgroundOpacity={0.7}
+              opacity={0.9}
+              blur={20}
+              blueOffset={50}
+              className="p-6 mobile:p-8 bg-purple-300"
+            >
+              <div className="text-center mb-6">
+                <div className="w-12 h-12 mobile:w-16 mobile:h-16 mx-auto mb-4 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-full flex items-center justify-center border border-orange-400/30">
+                  <Settings className="h-6 w-6 mobile:h-8 mobile:w-8 text-orange-300" />
+                </div>
+                <h3 className="text-lg font-semibold text-orange-300 mb-2">Quick Actions</h3>
+                <p className="text-gray-300">Manage your quizzes with quick actions</p>
+              </div>
+
+              <div className="space-y-4">
                 {quizzes?.slice(0, 5).map((quiz) => (
-                  <div key={quiz._id} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div>
-                      <p className="font-medium">{quiz.title}</p>
-                      <p className="text-sm text-gray-600">
-                        {quiz.isPublished ? 'Published' : 'Draft'} • 
-                        Created {new Date(quiz.createdAt).toLocaleDateString()}
-                      </p>
+                  <div key={quiz._id} className="bg-white/5 border border-orange-400/20 rounded-xl p-4 hover:bg-white/10 transition-all duration-300 group">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-white truncate mb-1">{quiz.title}</h4>
+                        <div className="flex items-center gap-4 text-sm text-gray-400">
+                          <div className="flex items-center gap-1">
+                            {quiz.isPublished ? (
+                              <>
+                                <Globe className="h-3 w-3 text-green-400" />
+                                <span className="text-green-400">Published</span>
+                              </>
+                            ) : (
+                              <>
+                                <Lock className="h-3 w-3 text-gray-400" />
+                                <span>Draft</span>
+                              </>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            <span>Created {new Date(quiz.createdAt).toLocaleDateString()}</span>
+                          </div>
+                        </div>
                     </div>
-                    <div className="flex space-x-2">
+                      <div className="flex gap-2 ml-4">
                       <Button
                         size="sm"
-                        variant="outline"
                         onClick={() => handleCloneQuiz(quiz._id, quiz.title)}
                         disabled={cloning === quiz._id}
+                          className="bg-gradient-to-r from-orange-600/80 to-red-600/80 hover:from-orange-600 hover:to-red-600 text-white border-0 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50"
                       >
+                          <Copy className="h-4 w-4 mr-1" />
                         {cloning === quiz._id ? 'Cloning...' : 'Clone'}
                       </Button>
-                      <Button size="sm" variant="outline" asChild>
+                        <Button
+                          asChild
+                          size="sm"
+                          variant="outline"
+                          className="bg-transparent border-orange-400/30 text-orange-300 hover:bg-orange-600/20 hover:text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
+                        >
                         <Link href={`/dashboard/quizzes/${quiz._id}`}>
+                            <Edit className="h-4 w-4 mr-1" />
                           Edit
                         </Link>
                       </Button>
+                      </div>
                     </div>
                   </div>
                 ))}
                 
                 {!quizzes || quizzes.length === 0 ? (
-                  <p className="text-center text-gray-600 py-4">
-                    No quizzes found. <Link href="/dashboard/create-quiz" className="text-blue-600 hover:underline">Create your first quiz</Link>
-                  </p>
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-gray-600/20 to-gray-700/20 rounded-full flex items-center justify-center border border-gray-500/30">
+                      <FileText className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <p className="text-gray-400 mb-4">No quizzes found</p>
+                    <Button
+                      asChild
+                      className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105"
+                    >
+                      <Link href="/dashboard/create-quiz">
+                        <FileText className="h-4 w-4 mr-2" />
+                        Create Your First Quiz
+                      </Link>
+                    </Button>
+                  </div>
                 ) : null}
               </div>
-            </CardContent>
-          </Card>
+            </GlassSurface>
+          </div>
         </div>
       </div>
     </div>

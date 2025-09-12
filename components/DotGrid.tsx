@@ -68,6 +68,7 @@ const DotGrid: React.FC<DotGridProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotsRef = useRef<Dot[]>([]);
+  const isVisibleRef = useRef(false);
   const pointerRef = useRef({
     x: 0,
     y: 0,
@@ -129,20 +130,56 @@ const DotGrid: React.FC<DotGridProps> = ({
     dotsRef.current = dots;
   }, [dotSize, gap]);
 
+  // Intersection Observer to pause animation when not visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (wrapperRef.current) {
+      observer.observe(wrapperRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     if (!circlePath) return;
 
     let rafId: number;
+    let lastTime = 0;
     const proxSq = proximity * proximity;
+    const targetFPS = 30; // Reduce from 60fps to 30fps
+    const frameInterval = 1000 / targetFPS;
 
-    const draw = () => {
+    const draw = (currentTime: number) => {
+      // Skip rendering if not visible
+      if (!isVisibleRef.current) {
+        rafId = requestAnimationFrame(draw);
+        return;
+      }
+
+      if (currentTime - lastTime < frameInterval) {
+        rafId = requestAnimationFrame(draw);
+        return;
+      }
+      lastTime = currentTime;
+
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const { x: px, y: py } = pointerRef.current;
+      
+      // Only clear if there are changes
+      const { x: px, y: py, speed } = pointerRef.current;
+      if (speed > 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
 
       for (const dot of dotsRef.current) {
         const ox = dot.cx + dot.xOffset;
@@ -171,7 +208,7 @@ const DotGrid: React.FC<DotGridProps> = ({
       rafId = requestAnimationFrame(draw);
     };
 
-    draw();
+    rafId = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(rafId);
   }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
 

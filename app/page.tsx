@@ -9,10 +9,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusCircle, BookOpen, Users, Trophy, TrendingUp } from "lucide-react";
-import AuthButton from "@/components/AuthButton";
-import TextType from "@/components/TextType";
+import dynamic from "next/dynamic";
 import GlassSurface from "@/components/GlassSurface";
-import BlurText from "@/components/BlurText";
+
+// Lazy load heavy components
+const TextType = dynamic(() => import("@/components/TextType"), {
+  loading: () => <div className="h-8 w-64 bg-gray-700 rounded animate-pulse" />,
+  ssr: false
+});
 
 export default function Home() {
   const { user, isLoaded } = useUser();
@@ -127,7 +131,7 @@ export default function Home() {
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-4 mobile:py-6">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-center items-center">
             <div className="flex items-center space-x-2 mobile:space-x-4">
               <div className="p-1.5 mobile:p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl">
                 <BookOpen className="h-6 w-6 mobile:h-8 mobile:w-8 text-white" />
@@ -136,7 +140,6 @@ export default function Home() {
                 Quiz Platform
               </h1>
             </div>
-            <AuthButton />
           </div>
         </div>
       </div>
@@ -145,13 +148,13 @@ export default function Home() {
         <div className="mb-6 mobile:mb-8 text-center animate-fade-in-up">
           <GlassSurface
             width="100%"
-            height={80}
+            height={65}
             borderRadius={50}
             saturation={1}
             displace={0.5}
             blur={11}
             backgroundOpacity={0.33}
-            distortionScale={-180}
+            distortionScale={-190}
             redOffset={5}
             greenOffset={15}
             blueOffset={20}

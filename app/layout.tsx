@@ -3,7 +3,19 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ConvexClientProvider } from './convex-provider'
-import SimpleBackground from '@/components/SimpleBackground'
+import dynamic from 'next/dynamic'
+import PerformanceMonitor from '@/components/PerformanceMonitor'
+
+// Lazy load heavy components
+const SimpleBackground = dynamic(() => import('@/components/SimpleBackground'), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 -z-10 bg-gray-900" />
+})
+
+const ResponsiveBubbleMenu = dynamic(() => import('@/components/ResponsiveBubbleMenu'), {
+  ssr: false,
+  loading: () => null
+})
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,8 +40,12 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <ConvexClientProvider>
+            {/* Performance Monitoring */}
+            <PerformanceMonitor />
             {/* Background */}
             <SimpleBackground />
+            {/* BubbleMenu Navigation */}
+            <ResponsiveBubbleMenu />
             {/* Content */}
             <div className="relative z-10">
               {children}
