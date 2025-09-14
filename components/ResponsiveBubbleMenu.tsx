@@ -1,21 +1,17 @@
 "use client";
 
-import { useUser, useClerk } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
+import { useAuthActions } from "@convex-dev/auth/react";
+import { useAuth } from "../contexts/AuthContext";
 import BubbleMenu from "./BubbleMenu";
 import { getNavigationItems, getBubbleMenuConfig } from "../lib/navigation";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function ResponsiveBubbleMenu() {
-  const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
+  const { signOut } = useAuthActions();
   const pathname = usePathname();
   const router = useRouter();
   
-  const userData = useQuery(api.users.getUserByClerkId,
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
 
   // Don't show on auth pages
   if (pathname?.includes('/sign-in') || pathname?.includes('/sign-up')) {
@@ -23,23 +19,23 @@ export default function ResponsiveBubbleMenu() {
   }
 
   // Don't show while loading
-  if (!isLoaded) {
+  if (currentUser === undefined) {
     return null;
   }
 
   // Get username for display
-  const username = user?.firstName || user?.emailAddresses[0]?.emailAddress?.split('@')[0] || 'User';
+  const username = currentUser?.name?.split(' ')[0] || currentUser?.email?.split('@')[0] || 'User';
 
   // Get navigation items based on user state
   const navigationItems = getNavigationItems(
-    !!user,
-    userData?.role
+    !!currentUser,
+    currentUser?.role
   );
 
   // Filter out items that don't match current user state and handle logout
   const filteredItems = navigationItems.filter(item => {
-    if (item.requiresAuth && !user) return false;
-    if (item.requiresQuizMaster && userData?.role !== 'quiz-master') return false;
+    if (item.requiresAuth && !currentUser) return false;
+    if (item.requiresQuizMaster && currentUser?.role !== 'quiz-master') return false;
     return true;
   }).map(item => {
     // Handle logout action

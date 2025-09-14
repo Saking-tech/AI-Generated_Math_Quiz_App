@@ -3,12 +3,14 @@ import { v } from "convex/values";
 
 export default defineSchema({
   users: defineTable({
-    clerkId: v.string(),
-    email: v.string(),
-    name: v.string(),
+    username: v.optional(v.string()),
+    password: v.optional(v.string()), // Will be hashed
+    email: v.optional(v.string()),
+    fullName: v.optional(v.string()),
+    name: v.optional(v.string()), // Legacy field for migration
     role: v.union(v.literal("quiz-master"), v.literal("general")),
     createdAt: v.number(),
-  }).index("by_clerk_id", ["clerkId"]),
+  }).index("by_username", ["username"]),
 
   quizzes: defineTable({
     title: v.string(),

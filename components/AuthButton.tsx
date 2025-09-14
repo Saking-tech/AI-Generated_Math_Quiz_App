@@ -1,15 +1,14 @@
 "use client";
 
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";
 
 export default function AuthButton() {
-  const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
+  const { user, isLoading, signOut } = useAuth();
 
-  if (!isLoaded) {
+  if (isLoading) {
     return (
       <div className="flex items-center space-x-2">
         <div className="w-8 h-8 bg-gray-600 rounded-full animate-pulse"></div>
@@ -39,7 +38,7 @@ export default function AuthButton() {
       <div className="flex items-center space-x-2 mobile:space-x-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-lg rounded-full px-2 mobile:px-4 py-1 mobile:py-2 border border-purple-400/30">
         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
         <span className="text-purple-200 font-medium text-sm mobile:text-base truncate max-w-20 mobile:max-w-none">
-          {user.firstName || user.emailAddresses[0]?.emailAddress?.split('@')[0]}
+          {user.fullName?.split(' ')[0] || user.username}
         </span>
       </div>
       <Button variant="outline" asChild size="sm" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300 hidden sm:inline-flex">

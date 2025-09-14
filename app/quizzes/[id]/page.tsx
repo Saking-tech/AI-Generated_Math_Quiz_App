@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
@@ -18,12 +17,9 @@ import ClickSpark from "@/components/ui/ClickSpark";
 export default function TakeQuizPage() {
   const params = useParams();
   const router = useRouter();
-  const { user } = useUser();
   const quizId = params.id as string;
   
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const quiz = useQuery(api.quizzes.getQuizWithQuestions, 
     quizId ? { quizId: quizId as any } : "skip"
   );
@@ -69,12 +65,12 @@ export default function TakeQuizPage() {
   }, [currentQuestion, quiz]);
 
   const handleStartQuiz = async () => {
-    if (!userData || !quiz) return;
+    if (!currentUser || !quiz) return;
 
     try {
       const id = await startQuizAttempt({
         quizId: quizId as any,
-        userId: userData._id,
+        userId: currentUser._id,
       });
       setAttemptId(id);
       setQuizStarted(true);
@@ -210,7 +206,7 @@ export default function TakeQuizPage() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  if (!quiz || !userData) {
+  if (!quiz || !currentUser) {
     return <div>Loading...</div>;
   }
 

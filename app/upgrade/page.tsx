@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
@@ -14,11 +13,8 @@ import { useRouter } from "next/navigation";
 import { Crown, CheckCircle, ArrowLeft } from "lucide-react";
 
 export default function UpgradePage() {
-  const { user } = useUser();
   const router = useRouter();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const updateUserRole = useMutation(api.users.updateUserRole);
 
   const [formData, setFormData] = useState({
@@ -31,14 +27,14 @@ export default function UpgradePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userData) return;
+    if (!currentUser) return;
 
     setIsUpgrading(true);
     try {
       // For demo purposes, we'll immediately upgrade the user
       // In a real application, this would typically require admin approval
       await updateUserRole({
-        userId: userData._id,
+        userId: currentUser._id,
         role: "quiz-master",
       });
       setUpgraded(true);
@@ -86,7 +82,7 @@ export default function UpgradePage() {
     );
   }
 
-  if (userData?.role === "quiz-master") {
+  if (currentUser?.role === "quiz-master") {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="container mx-auto px-4 py-8">

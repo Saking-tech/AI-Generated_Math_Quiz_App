@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useAuth } from "../../../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileUpload } from "@/components/quiz/FileUpload";
@@ -19,13 +19,10 @@ import TextType from "@/components/TextType";
 import BlurText from "@/components/BlurText";
 
 export default function ImportExportPage() {
-  const { user } = useUser();
   const router = useRouter();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const quizzes = useQuery(api.quizzes.getQuizzesByCreator, 
-    userData ? { creatorId: userData._id } : "skip"
+    currentUser ? { creatorId: currentUser._id as any } : "skip"
   );
   const importQuiz = useMutation(api.importExport.importQuizJson);
   const [importing, setImporting] = useState(false);
@@ -39,7 +36,7 @@ export default function ImportExportPage() {
   const [cloning, setCloning] = useState<string | null>(null);
 
   const handleFileUpload = async (content: string, filename: string, type: 'json' | 'markdown') => {
-    if (!userData) return;
+    if (!currentUser) return;
 
     setImporting(true);
     setImportResult(null);
@@ -54,7 +51,7 @@ export default function ImportExportPage() {
       }
 
       const quizId = await importQuiz({
-        createdBy: userData._id,
+        createdBy: currentUser._id as any,
         quizData,
       });
 
@@ -86,13 +83,13 @@ export default function ImportExportPage() {
   };
 
   const handleCloneQuiz = async (quizId: string, quizTitle: string) => {
-    if (!userData) return;
+    if (!currentUser) return;
 
     setCloning(quizId);
     try {
       const newQuizId = await cloneQuiz({
         sourceQuizId: quizId as any,
-        createdBy: userData._id,
+        createdBy: currentUser._id as any,
         newTitle: `${quizTitle} (Copy)`,
       });
       

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { useQuery, useMutation } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useAuth } from "../../../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,11 +17,8 @@ import { Plus, ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
 
 export default function CreateQuizPage() {
-  const { user } = useUser();
   const router = useRouter();
-  const userData = useQuery(api.users.getUserByClerkId,
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const createQuiz = useMutation(api.quizzes.createQuiz);
 
   const [formData, setFormData] = useState({
@@ -33,7 +30,7 @@ export default function CreateQuizPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userData) return;
+    if (!currentUser) return;
 
     setIsCreating(true);
     try {
@@ -41,7 +38,7 @@ export default function CreateQuizPage() {
         title: formData.title,
         description: formData.description || undefined,
         duration: formData.duration ? parseInt(formData.duration) : undefined,
-        createdBy: userData._id,
+        createdBy: currentUser._id as any,
       });
 
       router.push(`/dashboard/quizzes/${quizId}`);

@@ -1,10 +1,6 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
-import { useEffect } from "react";
-import { useMutation } from "convex/react";
+import { useAuth } from "../contexts/AuthContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,41 +15,17 @@ const TextType = dynamic(() => import("@/components/TextType"), {
 });
 
 export default function Home() {
-  const { user, isLoaded } = useUser();
-  const createUser = useMutation(api.users.createUser);
-  const userData = useQuery(api.users.getUserByClerkId,
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
 
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
   };
 
-  useEffect(() => {
-    if (isLoaded && user && !userData) {
-      // Create user in Convex if it doesn't exist
-      const createUserInConvex = async () => {
-        try {
-          await createUser({
-            clerkId: user.id,
-            email: user.emailAddresses[0]?.emailAddress || "",
-            name: user.fullName || user.emailAddresses[0]?.emailAddress || "User",
-            role: "general", // Default role, can be changed later
-          });
-        } catch (error) {
-          console.error("Failed to create user in Convex:", error);
-        }
-      };
-
-      createUserInConvex();
-    }
-  }, [user, userData, isLoaded, createUser]);
-
-  if (!isLoaded) {
+  if (currentUser === undefined) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
-  if (!user) {
+  if (!currentUser) {
     return (
       <div className="min-h-screen relative overflow-hidden">
 
@@ -179,7 +151,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mobile:gap-6 lg:gap-8 animate-fade-in-up animation-delay-200">
           {/* Quiz Master Section */}
-          {userData?.role === "quiz-master" && (
+          {currentUser?.role === "quiz-master" && (
             <Card className="group bg-purple-200 backdrop-blur-xl border border-purple-300/50 hover:border-purple-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
               <CardHeader className="relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -268,7 +240,7 @@ export default function Home() {
           </Card>
 
           {/* Role Management */}
-          {userData?.role === "general" && (
+          {currentUser?.role === "general" && (
             <Card className="group bg-purple-200 backdrop-blur-xl border border-purple-300/50 hover:border-purple-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
               <CardHeader className="relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600/10 to-rose-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

@@ -1,8 +1,6 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useAuth } from "../../contexts/AuthContext";
 import { Leaderboard } from "@/components/quiz/Leaderboard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,14 +10,11 @@ import { ArrowLeft, Trophy, TrendingUp, Users, Target, Award, Home } from "lucid
 import AuthButton from "@/components/AuthButton";
 
 export default function PublicLeaderboardPage() {
-  const { user } = useUser();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   
   const userStats = useQuery(
     api.quizAttempts.getUserStats,
-    userData ? { userId: userData._id } : "skip"
+    currentUser ? { userId: currentUser._id } : "skip"
   );
 
   return (
@@ -68,7 +63,7 @@ export default function PublicLeaderboardPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* User Stats - Only show if user is logged in */}
-          {user && userData && (
+          {currentUser && (
             <div className="lg:col-span-1">
               <Card className="bg-purple-200">
                 <CardHeader>
@@ -154,13 +149,13 @@ export default function PublicLeaderboardPage() {
           )}
 
           {/* Global Leaderboard */}
-          <div className={user && userData ? "lg:col-span-2" : "lg:col-span-3"}>
+          <div className={currentUser ? "lg:col-span-2" : "lg:col-span-3"}>
             <Leaderboard showGlobal={true} limit={20} />
           </div>
         </div>
 
         {/* Call to Action for non-logged in users */}
-        {!user && (
+        {!currentUser && (
           <div className="mt-8">
             <Card className="bg-purple-200">
               <CardContent className="text-center py-8">

@@ -1,8 +1,8 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useAuth } from "../../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -12,18 +12,15 @@ import GlareHover from "@/components/GlareHover";
 import MagicBento from "@/components/MagicBento";
 
 export default function ProfilePage() {
-  const { user } = useUser();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const attempts = useQuery(api.quizAttempts.getAttemptsByUser, 
-    userData ? { userId: userData._id } : "skip"
+    currentUser ? { userId: currentUser._id } : "skip"
   );
   const quizzes = useQuery(api.quizzes.getQuizzesByCreator, 
-    userData && userData.role === "quiz-master" ? { creatorId: userData._id } : "skip"
+    currentUser && currentUser.role === "quiz-master" ? { creatorId: currentUser._id } : "skip"
   );
 
-  if (!user || !userData) {
+  if (!currentUser) {
     return <div>Loading...</div>;
   }
 
@@ -89,31 +86,35 @@ export default function ProfilePage() {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Name</label>
-                    <p className="text-lg text-gray-800">{userData.name}</p>
+                    <label className="text-sm font-medium text-gray-700">Username</label>
+                    <p className="text-lg text-gray-800">{currentUser.username}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Full Name</label>
+                    <p className="text-lg text-gray-800">{currentUser.fullName || "Not set"}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Email</label>
-                    <p className="text-lg text-gray-800">{userData.email}</p>
+                    <p className="text-lg text-gray-800">{currentUser.email || "Not set"}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Role</label>
                     <div className="flex items-center">
-                      {userData.role === "quiz-master" && (
+                      {currentUser.role === "quiz-master" && (
                         <Crown className="h-4 w-4 text-yellow-600 mr-2" />
                       )}
                       <span className={`px-3 py-1 rounded-full text-sm ${
-                        userData.role === "quiz-master" 
+                        currentUser.role === "quiz-master" 
                           ? 'bg-yellow-100 text-yellow-800' 
                           : 'bg-blue-100 text-blue-800'
                       }`}>
-                        {userData.role === "quiz-master" ? "Quiz Master" : "General User"}
+                        {currentUser.role === "quiz-master" ? "Quiz Master" : "General User"}
                       </span>
                     </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Member Since</label>
-                    <p className="text-lg text-gray-800">{formatDate(userData.createdAt)}</p>
+                    <p className="text-lg text-gray-800">{formatDate(currentUser.createdAt)}</p>
                   </div>
                 </div>
               </GlareHover>
@@ -146,7 +147,7 @@ export default function ProfilePage() {
               </Card>
             </MagicBento>
 
-            {userData.role === "quiz-master" && (
+            {currentUser.role === "quiz-master" && (
               <>
                 <MagicBento 
                   textAutoHide={true}
@@ -256,7 +257,7 @@ export default function ProfilePage() {
                     <Link href="/results">View My Results</Link>
                   </Button>
 
-                  {userData.role === "quiz-master" ? (
+                  {currentUser.role === "quiz-master" ? (
                     <>
                       <Button asChild variant="outline" className="w-full">
                         <Link href="/dashboard/quizzes">My Quizzes</Link>

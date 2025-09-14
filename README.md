@@ -27,7 +27,7 @@ A comprehensive quiz application built with Next.js and Convex backend, featurin
 
 - **Frontend**: Next.js 14, React, TypeScript
 - **Backend**: Convex (Real-time database)
-- **Authentication**: Clerk
+- **Authentication**: Convex Auth
 - **Styling**: Tailwind CSS
 - **UI Components**: Radix UI primitives
 
@@ -35,7 +35,6 @@ A comprehensive quiz application built with Next.js and Convex backend, featurin
 
 ### Prerequisites
 - Node.js 18+ installed
-- A Clerk account for authentication
 - Access to the provided Convex deployment
 
 ### Environment Variables
@@ -45,11 +44,7 @@ Create a `.env.local` file in your project root:
 ```env
 # Convex Configuration
 NEXT_PUBLIC_CONVEX_URL=https://academic-bass-666.convex.cloud
-CONVEX_DEPLOYMENT=dev:academic-bass-666|eyJ2MiI6IjViMmJjYzFmYmI4NjQwMzdiZTM4MTZjZmRiZTQ2NzJjIn0=
-
-# Clerk Authentication (You need to get these from Clerk dashboard)
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-CLERK_SECRET_KEY=your_clerk_secret_key_here
+CONVEX_DEPLOYMENT=dev:academic-bass-666|eyJ2MiI6IjViMmJjYzFmYmI4NjQwMzciZTM4MTZjZmRiZTQ2NzJjIn0=
 ```
 
 ### Installation
@@ -59,13 +54,9 @@ CLERK_SECRET_KEY=your_clerk_secret_key_here
 npm install
 ```
 
-2. **Set up Clerk Authentication:**
-   - Go to [clerk.com](https://clerk.com) and create a new application
-   - Copy your publishable key and secret key
-   - Add them to your `.env.local` file
-   - Configure your Clerk settings:
-     - Enable email/password authentication
-     - Set up your sign-in/sign-up pages
+2. **Set up Convex Authentication:**
+   - The app uses Convex's built-in authentication system with email/password
+   - No additional setup required for authentication
 
 3. **Configure Convex:**
    The Convex backend is already configured with the provided deployment key. The schema and functions are included in the project.

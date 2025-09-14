@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
+import { useAuth } from "../../../contexts/AuthContext";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Leaderboard } from "@/components/quiz/Leaderboard";
@@ -11,18 +11,15 @@ import Link from "next/link";
 import { ArrowLeft, Trophy, TrendingUp, Users, Target, Award } from "lucide-react";
 
 export default function LeaderboardPage() {
-  const { user } = useUser();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   
   const userStats = useQuery(
     api.quizAttempts.getUserStats,
-    userData ? { userId: userData._id } : "skip"
+    currentUser ? { userId: currentUser._id } : "skip"
   );
 
   const quizzes = useQuery(api.quizzes.getQuizzesByCreator, 
-    userData ? { creatorId: userData._id } : "skip"
+    currentUser ? { creatorId: currentUser._id } : "skip"
   );
 
   return (

@@ -1,8 +1,6 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useAuth } from "../../contexts/AuthContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -15,19 +13,16 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, isLoaded } = useUser();
   const router = useRouter();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
 
   useEffect(() => {
-    if (isLoaded && userData && userData.role !== "quiz-master") {
+    if (currentUser !== undefined && (!currentUser || currentUser.role !== "quiz-master")) {
       router.push("/");
     }
-  }, [userData, isLoaded, router]);
+  }, [currentUser, router]);
 
-  if (!isLoaded) {
+  if (currentUser === undefined) {
     return (
       <div className="min-h-screen relative">
        {/* Loading Content */}
@@ -51,7 +46,7 @@ export default function DashboardLayout({
     );
   }
 
-  if (!user || (userData && userData.role !== "quiz-master")) {
+  if (!currentUser || (currentUser && currentUser.role !== "quiz-master")) {
     return (
       <div className="min-h-screen relative">
         {/* Access Denied Content */}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
@@ -18,12 +17,9 @@ export default function MyQuizzesPage() {
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
   };
-  const { user } = useUser();
-  const userData = useQuery(api.users.getUserByClerkId,
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const quizzes = useQuery(api.quizzes.getQuizzesByCreator,
-    userData ? { creatorId: userData._id } : "skip"
+    currentUser ? { creatorId: currentUser._id } : "skip"
   );
   const deleteQuiz = useMutation(api.quizzes.deleteQuiz);
   const updateQuiz = useMutation(api.quizzes.updateQuiz);

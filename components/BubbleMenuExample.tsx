@@ -2,16 +2,12 @@
 
 import BubbleMenu from './BubbleMenu';
 import { getNavigationItems, getBubbleMenuConfig } from '../lib/navigation';
-import { useUser } from '@clerk/nextjs';
 import { useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
 
 // Example showing all possible navigation items for different user states
 export default function BubbleMenuExample() {
-  const { user, isLoaded } = useUser();
-  const userData = useQuery(api.users.getUserByClerkId,
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
 
   // Example 1: For non-authenticated users
   const guestItems = getNavigationItems(false);
@@ -233,16 +229,16 @@ export default function BubbleMenuExample() {
       </div>
 
       {/* Current User Navigation */}
-      {isLoaded && (
+      {currentUser !== undefined && (
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">Current User Navigation</h2>
           <p className="text-sm text-gray-600">
-            User: {user ? user.emailAddresses[0]?.emailAddress : 'Guest'} | 
-            Role: {userData?.role || 'None'}
+            User: {currentUser ? currentUser.email : 'Guest'} | 
+            Role: {currentUser?.role || 'None'}
           </p>
           <BubbleMenu
             logo={getBubbleMenuConfig().logo}
-            items={getNavigationItems(!!user, userData?.role)}
+            items={getNavigationItems(!!currentUser, currentUser?.role)}
             menuAriaLabel="Toggle navigation"
             menuBg="#ffffff"
             menuContentColor="#111111"

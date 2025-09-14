@@ -1,8 +1,6 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useAuth } from "../../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -10,12 +8,9 @@ import { calculatePercentage, formatDateTime } from "@/lib/utils";
 import { Trophy, Eye, Home } from "lucide-react";
 
 export default function MyResultsPage() {
-  const { user } = useUser();
-  const userData = useQuery(api.users.getUserByClerkId, 
-    user ? { clerkId: user.id } : "skip"
-  );
+  const { user: currentUser } = useAuth();
   const attempts = useQuery(api.quizAttempts.getAttemptsByUser, 
-    userData ? { userId: userData._id } : "skip"
+    currentUser ? { userId: currentUser._id } : "skip"
   );
 
   if (!attempts) {
