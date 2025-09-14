@@ -5,6 +5,7 @@ import { ConvexClientProvider } from './convex-provider'
 import { AuthProvider } from '../contexts/AuthContext'
 import dynamic from 'next/dynamic'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
+import ClerkDebug from '@/components/ClerkDebug'
 
 // Lazy load heavy components
 const SimpleBackground = dynamic(() => import('@/components/SimpleBackground'), {
@@ -35,24 +36,47 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Ensure we have the publishable key
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    console.error('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is not set');
+  }
+
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ConvexClientProvider>
-          <AuthProvider>
-            {/* Performance Monitoring */}
-            <PerformanceMonitor />
-            {/* Background */}
-            <SimpleBackground />
-            {/* BubbleMenu Navigation */}
-            <ResponsiveBubbleMenu />
-            {/* Content */}
-            <div className="relative z-10">
-              {children}
-            </div>
-          </AuthProvider>
-        </ConvexClientProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      afterSignInUrl="/dashboard/quizzes"
+      afterSignUpUrl="/dashboard/quizzes"
+      domain="clerk.com"
+      appearance={{
+        baseTheme: undefined,
+        elements: {
+          rootBox: "clerk-root-box",
+          card: "clerk-card",
+        },
+      }}
+    >
+      <html lang="en">
+        <body className={inter.className}>
+          <ConvexClientProvider>
+            <AuthProvider>
+              {/* Performance Monitoring */}
+              <PerformanceMonitor />
+              {/* Background */}
+              <SimpleBackground />
+              {/* BubbleMenu Navigation */}
+              <ResponsiveBubbleMenu />
+              {/* Content */}
+              <div className="relative z-10">
+                {children}
+              </div>
+              {/* Debug Component - Only in development */}
+              <ClerkDebug />
+            </AuthProvider>
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
