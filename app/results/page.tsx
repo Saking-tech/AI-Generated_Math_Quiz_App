@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { calculatePercentage, formatDateTime } from "@/lib/utils";
-import { Trophy, Eye, Home, BookOpen, TrendingUp } from "lucide-react";
+import { Trophy, Eye, BookOpen, TrendingUp } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 export default function MyResultsPage() {

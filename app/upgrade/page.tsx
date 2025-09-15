@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Crown, CheckCircle, ArrowLeft, BookOpen, FileText, TrendingUp } from "lucide-react";
+import { Crown, CheckCircle, BookOpen, FileText, TrendingUp } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 export default function UpgradePage() {

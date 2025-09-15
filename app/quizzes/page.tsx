@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate, formatDuration } from "@/lib/utils";
-import { Clock, FileText, User, Home, Trophy, ArrowLeft } from "lucide-react";
+import { Clock, FileText, User, Trophy } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 export default function QuizzesPage() {
