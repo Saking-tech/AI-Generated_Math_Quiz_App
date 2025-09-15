@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertCircle, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,7 +17,6 @@ export default function SignUpForm() {
     username: "",
     password: "",
     confirmPassword: "",
-    role: "general" as "quiz-master" | "general",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -47,7 +45,7 @@ export default function SignUpForm() {
     }
 
     try {
-      await signUp(formData.username, formData.password, formData.role);
+      await signUp(formData.username, formData.password, "general");
       router.push("/");
     } catch (err) {
       console.error("Sign up error:", err);
@@ -63,7 +61,7 @@ export default function SignUpForm() {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-white">Create Account</CardTitle>
           <CardDescription className="text-gray-300">
-            Join the quiz platform today
+            Join the quiz platform today. All users start as General Users.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -89,22 +87,6 @@ export default function SignUpForm() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="role" className="text-white">Account Type</Label>
-              <Select
-                value={formData.role}
-                onValueChange={(value) => setFormData({ ...formData, role: value as "quiz-master" | "general" })}
-                disabled={isLoading}
-              >
-                <SelectTrigger className="bg-white/10 border-white/20 text-white focus:border-purple-400">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="general">General User</SelectItem>
-                  <SelectItem value="quiz-master">Quiz Master</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
             
             <div className="space-y-2">
               <Label htmlFor="password" className="text-white">Password</Label>
