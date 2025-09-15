@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { User, Crown, Trophy, BookOpen, ArrowLeft } from "lucide-react";
+import { User, Crown, Trophy, BookOpen, ArrowLeft, TrendingUp, FileText } from "lucide-react";
 import GlareHover from "@/components/GlareHover";
 import MagicBento from "@/components/MagicBento";
+import Navigation from "@/components/Navigation";
 
 export default function ProfilePage() {
   const { user: currentUser } = useAuth();
@@ -30,6 +31,9 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
@@ -42,12 +46,26 @@ export default function ProfilePage() {
                 My Profile
               </h1>
             </div>
-            <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
-              <Link href="/">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/quizzes">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  Browse Quizzes
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/results">
+                  <FileText className="h-4 w-4 mr-2" />
+                  My Results
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/leaderboard">
+                  <TrendingUp className="h-4 w-4 mr-2" />
+                  Leaderboard
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

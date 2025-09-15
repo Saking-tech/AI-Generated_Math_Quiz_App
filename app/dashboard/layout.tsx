@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import GlassSurface from "@/components/GlassSurface";
-import { BookOpen, Home, Settings } from "lucide-react";
+import { BookOpen, Home, Settings, PlusCircle, BarChart3, FileText, Users, ArrowLeft } from "lucide-react";
 
 export default function DashboardLayout({
   children,
@@ -91,7 +91,7 @@ export default function DashboardLayout({
       {/* Dashboard Header - Matching Home Page Style */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/80 to-blue-900/80 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-4 mobile:py-6">
-          <div className="flex justify-center items-center">
+          <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2 mobile:space-x-4">
               <div className="p-1.5 mobile:p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl">
                 <BookOpen className="h-6 w-6 mobile:h-8 mobile:w-8 text-white" />
@@ -100,6 +100,56 @@ export default function DashboardLayout({
                 Quiz Master Dashboard
               </h1>
             </div>
+            <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+              <Link href="/">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Home
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Sidebar */}
+      <div className="relative z-10 bg-gradient-to-b from-purple-900/20 to-blue-900/20 backdrop-blur-xl border-b border-purple-500/20">
+        <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-4">
+          <div className="flex flex-wrap gap-2 mobile:gap-4 justify-center">
+            <Button asChild variant="ghost" className="text-purple-200 hover:text-white hover:bg-purple-600/20">
+              <Link href="/dashboard/quizzes">
+                <FileText className="h-4 w-4 mr-2" />
+                My Quizzes
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" className="text-purple-200 hover:text-white hover:bg-purple-600/20">
+              <Link href="/dashboard/create-quiz">
+                <PlusCircle className="h-4 w-4 mr-2" />
+                Create Quiz
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" className="text-purple-200 hover:text-white hover:bg-purple-600/20">
+              <Link href="/dashboard/import-export">
+                <Settings className="h-4 w-4 mr-2" />
+                Import/Export
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" className="text-purple-200 hover:text-white hover:bg-purple-600/20">
+              <Link href="/dashboard/leaderboard">
+                <BarChart3 className="h-4 w-4 mr-2" />
+                Quiz Leaderboard
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" className="text-purple-200 hover:text-white hover:bg-purple-600/20">
+              <Link href="/quizzes">
+                <BookOpen className="h-4 w-4 mr-2" />
+                Browse Quizzes
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" className="text-purple-200 hover:text-white hover:bg-purple-600/20">
+              <Link href="/leaderboard">
+                <Users className="h-4 w-4 mr-2" />
+                Global Leaderboard
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

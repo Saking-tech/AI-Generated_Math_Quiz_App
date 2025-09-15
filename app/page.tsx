@@ -4,9 +4,10 @@ import { useAuth } from "../contexts/AuthContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlusCircle, BookOpen, Users, Trophy, TrendingUp } from "lucide-react";
+import { PlusCircle, BookOpen, Users, Trophy, TrendingUp, ArrowRight, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import GlassSurface from "@/components/GlassSurface";
+import Navigation from "@/components/Navigation";
 
 // Lazy load heavy components
 const TextType = dynamic(() => import("@/components/TextType"), {
@@ -96,22 +97,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-
-      {/* Header */}
-      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
-        <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-4 mobile:py-6">
-          <div className="flex justify-center items-center">
-            <div className="flex items-center space-x-2 mobile:space-x-4">
-              <div className="p-1.5 mobile:p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl">
-                <BookOpen className="h-6 w-6 mobile:h-8 mobile:w-8 text-white" />
-              </div>
-              <h1 className="text-mobile-title font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Quiz Platform
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Navigation */}
+      <Navigation />
 
       <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-6 mobile:py-8 relative z-10">
         <div className="mb-6 mobile:mb-8 text-center animate-fade-in-up">
@@ -169,6 +156,12 @@ export default function Home() {
                 <Button asChild variant="outline" className="w-full border-indigo-400/50 text-indigo-200 hover:bg-indigo-600/20 hover:border-indigo-400 rounded-xl transition-all duration-300 btn-responsive">
                   <Link href="/dashboard/create-quiz">✨ Create New Quiz</Link>
                 </Button>
+                <Button asChild variant="outline" className="w-full border-indigo-400/50 text-indigo-200 hover:bg-indigo-600/20 hover:border-indigo-400 rounded-xl transition-all duration-300 btn-responsive">
+                  <Link href="/dashboard/import-export">📊 Import/Export</Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full border-indigo-400/50 text-indigo-200 hover:bg-indigo-600/20 hover:border-indigo-400 rounded-xl transition-all duration-300 btn-responsive">
+                  <Link href="/dashboard/leaderboard">📈 Quiz Leaderboard</Link>
+                </Button>
               </CardContent>
             </Card>
           )}
@@ -187,9 +180,18 @@ export default function Home() {
                 Take quizzes and test your knowledge
               </CardDescription>
             </CardHeader>
-            <CardContent className="relative z-10">
+            <CardContent className="space-y-3 mobile:space-y-4 relative z-10">
               <Button asChild className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 btn-responsive">
-                <Link href="/quizzes">🧠 Browse Quizzes</Link>
+                <Link href="/quizzes">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  🧠 Browse Quizzes
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="w-full border-emerald-400/50 text-emerald-200 hover:bg-emerald-600/20 hover:border-emerald-400 rounded-xl transition-all duration-300 btn-responsive">
+                <Link href="/leaderboard">
+                  <Trophy className="h-4 w-4 mr-2" />
+                  🏆 View Leaderboard
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -208,9 +210,18 @@ export default function Home() {
                 See how you rank against other quiz takers
               </CardDescription>
             </CardHeader>
-            <CardContent className="relative z-10">
+            <CardContent className="space-y-3 mobile:space-y-4 relative z-10">
               <Button asChild className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 btn-responsive">
-                <Link href="/leaderboard">🏆 View Leaderboard</Link>
+                <Link href="/leaderboard">
+                  <Trophy className="h-4 w-4 mr-2" />
+                  🏆 View Leaderboard
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="w-full border-orange-400/50 text-orange-200 hover:bg-orange-600/20 hover:border-orange-400 rounded-xl transition-all duration-300 btn-responsive">
+                <Link href="/results">
+                  <Trophy className="h-4 w-4 mr-2" />
+                  📊 My Results
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -229,9 +240,18 @@ export default function Home() {
                 View your quiz attempts and scores
               </CardDescription>
             </CardHeader>
-            <CardContent className="relative z-10">
+            <CardContent className="space-y-3 mobile:space-y-4 relative z-10">
+              <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 btn-responsive">
+                <Link href="/results">
+                  <Trophy className="h-4 w-4 mr-2" />
+                  📊 View Results
+                </Link>
+              </Button>
               <Button asChild variant="outline" className="w-full border-blue-400/50 text-blue-200 hover:bg-blue-600/20 hover:border-blue-400 rounded-xl transition-all duration-300 btn-responsive">
-                <Link href="/results">📊 View Results</Link>
+                <Link href="/profile">
+                  <Users className="h-4 w-4 mr-2" />
+                  👤 My Profile
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -241,14 +261,28 @@ export default function Home() {
             <Card className="group bg-purple-200 backdrop-blur-xl border border-purple-300/50 hover:border-purple-400/60 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
               <CardHeader className="relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-600/10 to-rose-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardTitle className="relative z-10 bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Become a Quiz Master</CardTitle>
+                <CardTitle className="flex items-center relative z-10 bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">
+                  <div className="p-2 bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg mr-3 group-hover:animate-bounce">
+                    <PlusCircle className="h-5 w-5 text-white" />
+                  </div>
+                  Become a Quiz Master
+                </CardTitle>
                 <CardDescription className="text-gray-700 relative z-10">
                   Upgrade to create your own quizzes
                 </CardDescription>
               </CardHeader>
-              <CardContent className="relative z-10">
+              <CardContent className="space-y-3 mobile:space-y-4 relative z-10">
+                <Button asChild className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 btn-responsive">
+                  <Link href="/upgrade">
+                    <PlusCircle className="h-4 w-4 mr-2" />
+                    🚀 Request Upgrade
+                  </Link>
+                </Button>
                 <Button asChild variant="outline" className="w-full border-pink-400/50 text-pink-200 hover:bg-pink-600/20 hover:border-pink-400 rounded-xl transition-all duration-300 btn-responsive">
-                  <Link href="/upgrade">🚀 Request Upgrade</Link>
+                  <Link href="/profile">
+                    <User className="h-4 w-4 mr-2" />
+                    👤 My Profile
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

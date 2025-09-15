@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate, formatDuration } from "@/lib/utils";
-import { Clock, FileText, User } from "lucide-react";
+import { Clock, FileText, User, Home, Trophy, ArrowLeft } from "lucide-react";
+import Navigation from "@/components/Navigation";
 
 export default function QuizzesPage() {
   const quizzes = useQuery(api.quizzes.getPublishedQuizzes);
@@ -17,11 +18,28 @@ export default function QuizzesPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto mobile-padding tablet-padding desktop-padding py-4 mobile:py-6">
-          <div className="flex justify-center items-center">
+          <div className="flex justify-between items-center">
             <h1 className="text-mobile-title font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Available Quizzes</h1>
+            <div className="flex items-center space-x-2">
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/leaderboard">
+                  <Trophy className="h-4 w-4 mr-2" />
+                  Leaderboard
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/results">
+                  <FileText className="h-4 w-4 mr-2" />
+                  My Results
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

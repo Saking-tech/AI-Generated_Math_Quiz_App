@@ -8,8 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, Trophy, TrendingUp, Users, Home } from "lucide-react";
+import { ArrowLeft, Trophy, TrendingUp, Users, Home, BookOpen, FileText } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
+import Navigation from "@/components/Navigation";
 
 export default function PublicLeaderboardPage() {
   const { user: currentUser } = useAuth();
@@ -21,6 +22,8 @@ export default function PublicLeaderboardPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation />
 
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
@@ -34,14 +37,19 @@ export default function PublicLeaderboardPage() {
                 Leaderboard
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
-                <Link href="/">
-                  <Home className="h-4 w-4 mr-2" />
-                  Home
+            <div className="flex items-center space-x-2">
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/quizzes">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  Browse Quizzes
                 </Link>
               </Button>
-              <AuthButton />
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/results">
+                  <FileText className="h-4 w-4 mr-2" />
+                  My Results
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

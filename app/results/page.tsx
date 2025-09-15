@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { calculatePercentage, formatDateTime } from "@/lib/utils";
-import { Trophy, Eye, Home } from "lucide-react";
+import { Trophy, Eye, Home, BookOpen, TrendingUp } from "lucide-react";
+import Navigation from "@/components/Navigation";
 
 export default function MyResultsPage() {
   const { user: currentUser } = useAuth();
@@ -23,17 +24,28 @@ export default function MyResultsPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Header */}
       <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">My Quiz Results</h1>
-            <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
-              <Link href="/">
-                <Home className="h-4 w-4 mr-2" />
-                Home
-              </Link>
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/quizzes">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  Browse Quizzes
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/leaderboard">
+                  <TrendingUp className="h-4 w-4 mr-2" />
+                  Leaderboard
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

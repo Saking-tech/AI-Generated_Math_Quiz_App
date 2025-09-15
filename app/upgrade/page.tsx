@@ -11,7 +11,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Crown, CheckCircle, ArrowLeft } from "lucide-react";
+import { Crown, CheckCircle, ArrowLeft, BookOpen, FileText, TrendingUp } from "lucide-react";
+import Navigation from "@/components/Navigation";
 
 export default function UpgradePage() {
   const router = useRouter();
@@ -112,50 +113,75 @@ export default function UpgradePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation />
+      
+      {/* Header */}
+      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Upgrade to Quiz Master</h1>
-            <Button variant="outline" asChild>
-              <Link href="/">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
+            <div className="flex items-center space-x-4">
+              <div className="p-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl">
+                <Crown className="h-8 w-8 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                Upgrade to Quiz Master
+              </h1>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/quizzes">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  Browse Quizzes
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/results">
+                  <FileText className="h-4 w-4 mr-2" />
+                  My Results
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400">
+                <Link href="/leaderboard">
+                  <TrendingUp className="h-4 w-4 mr-2" />
+                  Leaderboard
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Benefits Card */}
-          <Card>
+          <Card className="bg-purple-200 backdrop-blur-xl border border-purple-300/50">
             <CardHeader>
-              <CardTitle className="flex items-center">
+              <CardTitle className="flex items-center bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">
                 <Crown className="h-5 w-5 mr-2 text-yellow-600" />
                 Quiz Master Benefits
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-gray-700">
                 Unlock the full potential of our quiz platform
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <h4 className="font-medium">Create Unlimited Quizzes</h4>
+                  <h4 className="font-medium text-gray-800">Create Unlimited Quizzes</h4>
                   <p className="text-sm text-gray-600">Design and publish as many quizzes as you need</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-medium">Multiple Question Types</h4>
+                  <h4 className="font-medium text-gray-800">Multiple Question Types</h4>
                   <p className="text-sm text-gray-600">MCQs, multiple choice, and short answer questions</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-medium">Student Analytics</h4>
+                  <h4 className="font-medium text-gray-800">Student Analytics</h4>
                   <p className="text-sm text-gray-600">Track student performance and quiz statistics</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-medium">Quiz Management</h4>
+                  <h4 className="font-medium text-gray-800">Quiz Management</h4>
                   <p className="text-sm text-gray-600">Edit, publish, and manage your quiz content</p>
                 </div>
               </div>
@@ -163,10 +189,10 @@ export default function UpgradePage() {
           </Card>
 
           {/* Upgrade Request Form */}
-          <Card>
+          <Card className="bg-purple-200 backdrop-blur-xl border border-purple-300/50">
             <CardHeader>
-              <CardTitle>Request Quiz Master Access</CardTitle>
-              <CardDescription>
+              <CardTitle className="bg-gradient-to-r from-blue-800 to-indigo-800 bg-clip-text text-transparent">Request Quiz Master Access</CardTitle>
+              <CardDescription className="text-gray-700">
                 Tell us about yourself and how you plan to use the platform
               </CardDescription>
             </CardHeader>
