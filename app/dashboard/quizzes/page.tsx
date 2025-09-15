@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate, formatDuration } from "@/lib/utils";
+import { toQuizId } from "@/lib/types";
 import { Edit, Trash2, Users, Plus, Upload, BookOpen, Calendar, Clock, Globe, Lock } from "lucide-react";
 import { useState } from "react";
 import GlassSurface from "@/components/GlassSurface";
@@ -30,7 +31,7 @@ export default function MyQuizzesPage() {
   const handleDeleteQuiz = async (quizId: string) => {
     setDeletingQuiz(quizId);
     try {
-      await deleteQuiz({ quizId: quizId as any });
+      await deleteQuiz({ quizId: toQuizId(quizId) });
     } catch (error) {
       console.error("Error deleting quiz:", error);
     } finally {
@@ -41,7 +42,7 @@ export default function MyQuizzesPage() {
   const handleTogglePublish = async (quizId: string, isPublished: boolean) => {
     try {
       await updateQuiz({
-        quizId: quizId as any,
+        quizId: toQuizId(quizId),
         isPublished: !isPublished
       });
     } catch (error) {

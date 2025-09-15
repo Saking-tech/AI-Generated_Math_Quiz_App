@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { toAttemptId } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -15,7 +16,7 @@ export default function QuizResultPage() {
   const attemptId = params.id as string;
   
   const attempt = useQuery(api.quizAttempts.getAttemptDetails, 
-    attemptId ? { attemptId: attemptId as any } : "skip"
+    attemptId ? { attemptId: toAttemptId(attemptId) } : "skip"
   );
 
   if (!attempt) {

@@ -14,6 +14,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Plus, Trash2, Edit, Save, X } from "lucide-react";
 import { ExportButtons } from "@/components/quiz/ExportButtons";
 import { exportToJson, exportToMarkdown } from "@/lib/quizFormatters";
+import { toQuizId, toQuestionId } from "@/lib/types";
 
 type QuestionType = "mcq_single" | "mcq_multiple" | "short_answer";
 
@@ -32,10 +33,10 @@ export default function EditQuizPage() {
   const quizId = params.id as string;
   
   const quiz = useQuery(api.quizzes.getQuizWithQuestions, 
-    quizId ? { quizId: quizId as any } : "skip"
+    quizId ? { quizId: toQuizId(quizId) } : "skip"
   );
   const exportQuizData = useQuery(api.importExport.exportQuizJson,
-    quizId ? { quizId: quizId as any } : "skip"
+    quizId ? { quizId: toQuizId(quizId) } : "skip"
   );
   const updateQuiz = useMutation(api.quizzes.updateQuiz);
   const createQuestion = useMutation(api.questions.createQuestion);
@@ -56,7 +57,7 @@ export default function EditQuizPage() {
   const handleUpdateQuiz = async (field: string, value: string | number | boolean) => {
     try {
       await updateQuiz({
-        quizId: quizId as any,
+        quizId: toQuizId(quizId),
         [field]: value,
       });
     } catch (error) {
@@ -69,7 +70,7 @@ export default function EditQuizPage() {
 
     try {
       await createQuestion({
-        quizId: quizId as any,
+        quizId: toQuizId(quizId),
         questionText: newQuestion.questionText,
         questionType: newQuestion.questionType,
         options: newQuestion.questionType !== "short_answer" ? newQuestion.options.filter(o => o.trim()) : undefined,
@@ -103,7 +104,7 @@ export default function EditQuizPage() {
   const handleUpdateQuestion = async (questionId: string, updates: Partial<Question>) => {
     try {
       await updateQuestion({
-        questionId: questionId as any,
+        questionId: toQuestionId(questionId),
         ...updates,
       });
       setEditingQuestion(null);

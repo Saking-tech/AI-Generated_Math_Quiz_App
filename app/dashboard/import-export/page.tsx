@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { parseJsonQuiz, parseMarkdownQuiz, exportToJson, exportToMarkdown } from "@/lib/quizFormatters";
+import { toQuizId } from "@/lib/types";
 import { AlertCircle, CheckCircle, ArrowLeft, Upload, Download, FileText, Copy, Edit, Calendar, Globe, Lock, ChevronDown, Database, Settings } from "lucide-react";
 import GlassSurface from "@/components/GlassSurface";
 import TextType from "@/components/TextType";
@@ -27,7 +28,7 @@ export default function ImportExportPage() {
   const [selectedQuizForExport, setSelectedQuizForExport] = useState<string>("");
   const exportQuizData = useQuery(
     api.importExport.exportQuizJson,
-    selectedQuizForExport ? { quizId: selectedQuizForExport as any } : "skip"
+    selectedQuizForExport ? { quizId: toQuizId(selectedQuizForExport) } : "skip"
   );
   const cloneQuiz = useMutation(api.importExport.cloneQuiz);
   const [importResult, setImportResult] = useState<{ success: boolean; message: string; quizId?: string } | null>(null);
@@ -86,7 +87,7 @@ export default function ImportExportPage() {
     setCloning(quizId);
     try {
       const newQuizId = await cloneQuiz({
-        sourceQuizId: quizId as any,
+        sourceQuizId: toQuizId(quizId),
         createdBy: currentUser._id,
         newTitle: `${quizTitle} (Copy)`,
       });

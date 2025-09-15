@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { formatDuration } from "@/lib/utils";
+import { toQuizId, toQuestionId, toAttemptId } from "@/lib/types";
 import { Clock, CheckCircle, Flag, RotateCcw } from "lucide-react";
 import ClickSpark from "@/components/ui/ClickSpark";
 
@@ -22,7 +23,7 @@ export default function TakeQuizPage() {
   
   const { user: currentUser } = useAuth();
   const quiz = useQuery(api.quizzes.getQuizWithQuestions, 
-    quizId ? { quizId: quizId as any } : "skip"
+    quizId ? { quizId: toQuizId(quizId) } : "skip"
   );
   const startQuizAttempt = useMutation(api.quizAttempts.startQuizAttempt);
   const submitQuizAttempt = useMutation(api.quizAttempts.submitQuizAttempt);
@@ -42,12 +43,12 @@ export default function TakeQuizPage() {
     setIsSubmitting(true);
     try {
       const formattedAnswers = Object.entries(answers).map(([questionId, selectedAnswers]) => ({
-        questionId: questionId as any,
+        questionId: toQuestionId(questionId),
         selectedAnswers: selectedAnswers.filter(answer => answer.trim() !== ""),
       }));
 
       await submitQuizAttempt({
-        attemptId: attemptId as any,
+        attemptId: toAttemptId(attemptId),
         answers: formattedAnswers,
       });
 
@@ -93,7 +94,7 @@ export default function TakeQuizPage() {
 
     try {
       const id = await startQuizAttempt({
-        quizId: quizId as any,
+        quizId: toQuizId(quizId),
         userId: currentUser._id,
       });
       setAttemptId(id);
