@@ -1,17 +1,15 @@
 "use client";
 
-import { useAuthActions } from "@convex-dev/auth/react";
 import { useAuth } from "../contexts/AuthContext";
 import BubbleMenu from "./BubbleMenu";
 import { getNavigationItems, getBubbleMenuConfig } from "../lib/navigation";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function ResponsiveBubbleMenu() {
-  const { signOut } = useAuthActions();
   const pathname = usePathname();
   const router = useRouter();
   
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, signOut } = useAuth();
 
   // Don't show on auth pages
   if (pathname?.includes('/sign-in') || pathname?.includes('/sign-up')) {
