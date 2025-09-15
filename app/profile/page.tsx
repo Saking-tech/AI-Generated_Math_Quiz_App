@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { User, Crown, Trophy, BookOpen, ArrowLeft, TrendingUp, FileText } from "lucide-react";
+import { User, Crown, Trophy, BookOpen, TrendingUp, FileText } from "lucide-react";
 import GlareHover from "@/components/GlareHover";
 import MagicBento from "@/components/MagicBento";
 import Navigation from "@/components/Navigation";

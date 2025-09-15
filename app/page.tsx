@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlusCircle, BookOpen, Users, Trophy, TrendingUp, ArrowRight, User } from "lucide-react";
+import { PlusCircle, BookOpen, Users, Trophy, TrendingUp, User } from "lucide-react";
 import dynamic from "next/dynamic";
 import GlassSurface from "@/components/GlassSurface";
 import Navigation from "@/components/Navigation";

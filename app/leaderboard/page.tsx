@@ -8,8 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, Trophy, TrendingUp, Users, Home, BookOpen, FileText } from "lucide-react";
-import AuthButton from "@/components/AuthButton";
+import { Trophy, TrendingUp, Users, BookOpen, FileText } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 export default function PublicLeaderboardPage() {
