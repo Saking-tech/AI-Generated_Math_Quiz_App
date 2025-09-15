@@ -20,12 +20,10 @@ interface MagicBentoProps {
 
 const MagicBento: React.FC<MagicBentoProps> = ({
   children,
-  textAutoHide = true,
   enableStars = true,
   enableSpotlight = true,
   enableBorderGlow = true,
   enableTilt = true,
-  enableMagnetism = true,
   clickEffect = true,
   spotlightRadius = 300,
   particleCount = 12,

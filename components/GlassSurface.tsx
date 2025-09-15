@@ -156,7 +156,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     blueOffset,
     xChannel,
     yChannel,
-    mixBlendMode
+    mixBlendMode,
+    updateDisplacementMap
   ]);
 
   useEffect(() => {
@@ -185,11 +186,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [updateDisplacementMap]);
 
   useEffect(() => {
     setTimeout(updateDisplacementMap, 0);
-  }, [width, height]);
+  }, [width, height, updateDisplacementMap]);
 
   const supportsSVGFilters = () => {
     if (typeof window === 'undefined' || typeof navigator === 'undefined' || typeof document === 'undefined') return false;

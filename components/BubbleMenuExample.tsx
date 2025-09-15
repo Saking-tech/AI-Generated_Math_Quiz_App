@@ -2,8 +2,7 @@
 
 import BubbleMenu from './BubbleMenu';
 import { getNavigationItems, getBubbleMenuConfig } from '../lib/navigation';
-import { useQuery } from 'convex/react';
-import { api } from '../convex/_generated/api';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Example showing all possible navigation items for different user states
 export default function BubbleMenuExample() {

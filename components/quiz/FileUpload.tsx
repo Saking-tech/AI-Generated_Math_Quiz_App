@@ -2,8 +2,6 @@
 
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Upload, FileText, AlertCircle, FileJson, FileCode, CheckCircle } from "lucide-react";
 import GlassSurface from "@/components/GlassSurface";
 

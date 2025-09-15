@@ -64,7 +64,7 @@ export default function QuizResultsPage() {
           <CardContent className="text-center py-8">
             <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium mb-2">No attempts yet</h3>
-            <p className="text-gray-600">Students haven't taken this quiz yet.</p>
+            <p className="text-gray-600">Students haven&apos;t taken this quiz yet.</p>
           </CardContent>
         </Card>
       ) : (

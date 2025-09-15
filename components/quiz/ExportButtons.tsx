@@ -7,7 +7,14 @@ import { Download, FileText, Code, Copy, CheckCircle } from "lucide-react";
 import { downloadFile } from "@/lib/quizFormatters";
 
 interface ExportButtonsProps {
-  quiz: any;
+  quiz: {
+    _id: string;
+    title: string;
+    description?: string;
+    duration?: number;
+    isPublished: boolean;
+    createdAt: number;
+  };
   onExport: (format: 'json' | 'markdown') => Promise<string>;
 }
 

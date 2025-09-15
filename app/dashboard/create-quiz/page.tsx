@@ -8,13 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import GlassSurface from "@/components/GlassSurface";
 import TextType from "@/components/TextType";
-import DotGrid from "@/components/DotGrid";
-import { Plus, ArrowLeft, BookOpen } from "lucide-react";
-import Link from "next/link";
+import { Plus, ArrowLeft } from "lucide-react";
 
 export default function CreateQuizPage() {
   const router = useRouter();
@@ -38,7 +35,7 @@ export default function CreateQuizPage() {
         title: formData.title,
         description: formData.description || undefined,
         duration: formData.duration ? parseInt(formData.duration) : undefined,
-        createdBy: currentUser._id as any,
+        createdBy: currentUser._id,
       });
 
       router.push(`/dashboard/quizzes/${quizId}`);

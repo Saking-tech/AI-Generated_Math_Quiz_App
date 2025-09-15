@@ -2,11 +2,12 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDate, formatDuration } from "@/lib/utils";
-import { Edit, Trash2, Eye, Users, Plus, Upload, BookOpen, Calendar, Clock, Globe, Lock } from "lucide-react";
+import { Edit, Trash2, Users, Plus, Upload, BookOpen, Calendar, Clock, Globe, Lock } from "lucide-react";
 import { useState } from "react";
 import GlassSurface from "@/components/GlassSurface";
 import TextType from "@/components/TextType";

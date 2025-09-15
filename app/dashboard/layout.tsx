@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import GlassSurface from "@/components/GlassSurface";
-import { BookOpen, Plus, Upload, Trophy, Home, Settings } from "lucide-react";
+import { BookOpen, Home, Settings } from "lucide-react";
 
 export default function DashboardLayout({
   children,

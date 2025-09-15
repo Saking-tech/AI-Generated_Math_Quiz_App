@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -35,6 +36,29 @@ export default function TakeQuizPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
 
+  const handleSubmitQuiz = useCallback(async () => {
+    if (!attemptId || !quiz) return;
+
+    setIsSubmitting(true);
+    try {
+      const formattedAnswers = Object.entries(answers).map(([questionId, selectedAnswers]) => ({
+        questionId: questionId as any,
+        selectedAnswers: selectedAnswers.filter(answer => answer.trim() !== ""),
+      }));
+
+      await submitQuizAttempt({
+        attemptId: attemptId as any,
+        answers: formattedAnswers,
+      });
+
+      router.push(`/results/${attemptId}`);
+    } catch (error) {
+      console.error("Error submitting quiz:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [attemptId, quiz, answers, submitQuizAttempt, router]);
+
   // Timer effect
   useEffect(() => {
     if (timeLeft === null || timeLeft <= 0) return;
@@ -50,7 +74,7 @@ export default function TakeQuizPage() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, [timeLeft, handleSubmitQuiz]);
 
   // Track visited questions
   useEffect(() => {
@@ -175,29 +199,6 @@ export default function TakeQuizPage() {
       marked,
       answeredMarked
     };
-  };
-
-  const handleSubmitQuiz = async () => {
-    if (!attemptId || !quiz) return;
-
-    setIsSubmitting(true);
-    try {
-      const formattedAnswers = Object.entries(answers).map(([questionId, selectedAnswers]) => ({
-        questionId: questionId as any,
-        selectedAnswers: selectedAnswers.filter(answer => answer.trim() !== ""),
-      }));
-
-      await submitQuizAttempt({
-        attemptId: attemptId as any,
-        answers: formattedAnswers,
-      });
-
-      router.push(`/results/${attemptId}`);
-    } catch (error) {
-      console.error("Error submitting quiz:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const formatTime = (seconds: number) => {
@@ -594,7 +595,7 @@ export default function TakeQuizPage() {
                       const isCurrent = index === currentQuestion;
                       
                       let bgColor = 'bg-gray-400'; // not-visited
-                      let textColor = 'text-white';
+                      const textColor = 'text-white';
                       let borderColor = 'border-gray-300';
                       
                       if (status === 'not-answered') {

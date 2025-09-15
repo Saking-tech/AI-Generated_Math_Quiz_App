@@ -87,7 +87,7 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-sm font-medium text-gray-700">Username</label>
-                    <p className="text-lg text-gray-800">{currentUser.username}</p>
+                    <p className="text-lg text-gray-800">{currentUser.username || "Not set"}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Full Name</label>

@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, Trophy, TrendingUp, Users, Target, Award } from "lucide-react";
+import { ArrowLeft, Trophy, TrendingUp, Users, Target } from "lucide-react";
 
 export default function LeaderboardPage() {
   const { user: currentUser } = useAuth();
@@ -86,7 +86,7 @@ export default function LeaderboardPage() {
                     <div>
                       <h4 className="font-semibold mb-3">Recent Attempts</h4>
                       <div className="space-y-2">
-                        {userStats.recentAttempts.slice(0, 3).map((attempt, index) => (
+                        {userStats.recentAttempts.slice(0, 3).map((attempt) => (
                           <div key={attempt._id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
                             <div>
                               <p className="font-medium text-sm">{attempt.quiz?.title}</p>

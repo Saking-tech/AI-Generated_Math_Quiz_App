@@ -3,12 +3,15 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
+import { Id } from "../convex/_generated/dataModel";
 
 interface User {
-  _id: string;
-  username: string;
+  _id: Id<"users">;
+  _creationTime: number;
+  username?: string;
   fullName?: string;
   email?: string;
+  name?: string; // Legacy field
   role: "quiz-master" | "general";
   createdAt: number;
 }

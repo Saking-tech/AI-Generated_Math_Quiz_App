@@ -17,9 +17,6 @@ const TextType = dynamic(() => import("@/components/TextType"), {
 export default function Home() {
   const { user: currentUser } = useAuth();
 
-  const handleAnimationComplete = () => {
-    console.log('Animation completed!');
-  };
 
   if (currentUser === undefined) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;

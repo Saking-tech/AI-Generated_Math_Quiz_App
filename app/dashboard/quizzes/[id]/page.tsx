@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Plus, Trash2, Edit, Save, X, Download } from "lucide-react";
+import { Plus, Trash2, Edit, Save, X } from "lucide-react";
 import { ExportButtons } from "@/components/quiz/ExportButtons";
 import { exportToJson, exportToMarkdown } from "@/lib/quizFormatters";
 
@@ -21,7 +21,7 @@ interface Question {
   _id?: string;
   questionText: string;
   questionType: QuestionType;
-  options: string[];
+  options?: string[];
   correctAnswers: string[];
   points: number;
   order: number;
@@ -53,7 +53,7 @@ export default function EditQuizPage() {
   });
   const [showAddQuestion, setShowAddQuestion] = useState(false);
 
-  const handleUpdateQuiz = async (field: string, value: any) => {
+  const handleUpdateQuiz = async (field: string, value: string | number | boolean) => {
     try {
       await updateQuiz({
         quizId: quizId as any,
@@ -242,7 +242,7 @@ function QuestionCard({
   onCancel, 
   onDelete 
 }: {
-  question: any;
+  question: Question;
   index: number;
   isEditing: boolean;
   onEdit: () => void;
@@ -331,7 +331,7 @@ function QuestionForm({
   onSave: () => void;
   onCancel: () => void;
 }) {
-  const updateQuestion = (field: string, value: any) => {
+  const updateQuestion = (field: string, value: string | number | string[]) => {
     onChange({ ...question, [field]: value });
   };
 

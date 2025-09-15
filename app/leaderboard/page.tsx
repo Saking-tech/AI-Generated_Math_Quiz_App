@@ -1,12 +1,14 @@
 "use client";
 
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import { useAuth } from "../../contexts/AuthContext";
 import { Leaderboard } from "@/components/quiz/Leaderboard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, Trophy, TrendingUp, Users, Target, Award, Home } from "lucide-react";
+import { ArrowLeft, Trophy, TrendingUp, Users, Home } from "lucide-react";
 import AuthButton from "@/components/AuthButton";
 
 export default function PublicLeaderboardPage() {
@@ -109,7 +111,7 @@ export default function PublicLeaderboardPage() {
                         <div>
                           <h4 className="font-semibold mb-3">Recent Attempts</h4>
                           <div className="space-y-2">
-                            {userStats.recentAttempts.slice(0, 3).map((attempt, index) => (
+                            {userStats.recentAttempts.slice(0, 3).map((attempt) => (
                               <div key={attempt._id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
                                 <div>
                                   <p className="font-medium text-sm">{attempt.quiz?.title}</p>

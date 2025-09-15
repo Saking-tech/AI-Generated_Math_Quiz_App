@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery, useMutation } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -59,7 +60,7 @@ export default function UpgradePage() {
                 <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                 <h1 className="text-3xl font-bold mb-4">Congratulations!</h1>
                 <p className="text-lg text-gray-600 mb-6">
-                  You've been successfully upgraded to Quiz Master status!
+                  You&apos;ve been successfully upgraded to Quiz Master status!
                 </p>
                 <div className="space-y-4">
                   <p className="text-sm text-gray-600">
@@ -90,7 +91,7 @@ export default function UpgradePage() {
             <Card>
               <CardContent className="text-center py-8">
                 <Crown className="h-16 w-16 text-yellow-600 mx-auto mb-4" />
-                <h1 className="text-3xl font-bold mb-4">You're Already a Quiz Master!</h1>
+                <h1 className="text-3xl font-bold mb-4">You&apos;re Already a Quiz Master!</h1>
                 <p className="text-lg text-gray-600 mb-6">
                   You already have quiz master privileges and can create quizzes.
                 </p>

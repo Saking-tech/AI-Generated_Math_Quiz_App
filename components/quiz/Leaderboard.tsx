@@ -6,7 +6,7 @@ import { api } from "../../convex/_generated/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Medal, Award, Users, Target, Clock, TrendingUp } from "lucide-react";
+import { Trophy, Medal, Award, Users, Target, Clock } from "lucide-react";
 
 interface LeaderboardProps {
   quizId?: string;
@@ -24,7 +24,7 @@ export function Leaderboard({ quizId, showGlobal = true, limit = 10 }: Leaderboa
   
   const quizLeaderboard = useQuery(
     api.quizAttempts.getQuizLeaderboard,
-    quizId ? { quizId: quizId as any, limit } : "skip"
+    quizId ? { quizId, limit } : "skip"
   );
 
   const getRankIcon = (rank: number) => {
