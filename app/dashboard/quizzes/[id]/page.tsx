@@ -95,7 +95,7 @@ export default function EditQuizPage() {
 
   const handleDeleteQuestion = async (questionId: string) => {
     try {
-      await deleteQuestion({ questionId: questionId as any });
+      await deleteQuestion({ questionId: toQuestionId(questionId) });
     } catch (error) {
       console.error("Error deleting question:", error);
     }

@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Medal, Award, Users, Target, Clock } from "lucide-react";
+import { toQuizId } from "@/lib/types";
 
 interface LeaderboardProps {
   quizId?: string;
@@ -24,7 +25,7 @@ export function Leaderboard({ quizId, showGlobal = true, limit = 10 }: Leaderboa
   
   const quizLeaderboard = useQuery(
     api.quizAttempts.getQuizLeaderboard,
-    quizId ? { quizId, limit } : "skip"
+    quizId ? { quizId: toQuizId(quizId), limit } : "skip"
   );
 
   const getRankIcon = (rank: number) => {

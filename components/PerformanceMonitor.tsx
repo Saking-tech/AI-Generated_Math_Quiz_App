@@ -2,6 +2,19 @@
 
 import { useEffect } from 'react';
 
+// Type definitions for Web Performance API
+interface LayoutShift extends PerformanceEntry {
+  value: number;
+  hadRecentInput: boolean;
+  sources: LayoutShiftAttribution[];
+}
+
+interface LayoutShiftAttribution {
+  node?: Node;
+  previousRect: DOMRectReadOnly;
+  currentRect: DOMRectReadOnly;
+}
+
 export default function PerformanceMonitor() {
   useEffect(() => {
     // Only run in development

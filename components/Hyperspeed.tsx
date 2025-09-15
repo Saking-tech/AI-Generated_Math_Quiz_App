@@ -923,7 +923,7 @@ class App {
   renderPass!: RenderPass;
   bloomPass!: EffectPass;
   clock: THREE.Clock;
-  assets: Record<string, any>;
+  assets: Record<string, unknown>;
   disposed: boolean;
   road: Road;
   leftCarLights: CarLights;
@@ -1054,15 +1054,15 @@ class App {
 
       const searchImage = new Image();
       const areaImage = new Image();
-      assets.smaa = {};
+      assets.smaa = {} as { search?: HTMLImageElement; area?: HTMLImageElement };
 
       searchImage.addEventListener('load', function () {
-        assets.smaa.search = this;
+        (assets.smaa as { search?: HTMLImageElement; area?: HTMLImageElement }).search = this;
         manager.itemEnd('smaa-search');
       });
 
       areaImage.addEventListener('load', function () {
-        assets.smaa.area = this;
+        (assets.smaa as { search?: HTMLImageElement; area?: HTMLImageElement }).area = this;
         manager.itemEnd('smaa-area');
       });
 
