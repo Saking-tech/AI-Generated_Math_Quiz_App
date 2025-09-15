@@ -116,6 +116,7 @@ export default function SignUpForm() {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
                 disabled={isLoading}
+                autoComplete="new-password"
                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
               />
             </div>
@@ -130,6 +131,7 @@ export default function SignUpForm() {
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 required
                 disabled={isLoading}
+                autoComplete="new-password"
                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
               />
             </div>
