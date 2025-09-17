@@ -4,11 +4,9 @@ import { useParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import { toQuizId } from "@/lib/types";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
 import { calculatePercentage, formatDateTime } from "@/lib/utils";
-import { Trophy, Users, TrendingUp, ArrowLeft } from "lucide-react";
+import { Trophy, Users, TrendingUp } from "lucide-react";
 import GlassSurface from "@/components/GlassSurface";
 
 export default function QuizResultsPage() {
