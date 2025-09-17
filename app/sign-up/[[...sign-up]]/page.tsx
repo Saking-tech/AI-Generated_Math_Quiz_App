@@ -1,33 +1,30 @@
-import SignUpForm from "@/components/SignUpForm";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { SignUp } from '@clerk/nextjs';
 
-export default function Page() {
+export default function SignUpPage() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Header */}
-      <div className="relative z-10 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Sign Up</h1>
-            <Button variant="outline" asChild className="border-purple-400/50 text-purple-200 hover:bg-purple-600/20 hover:border-purple-400 transition-all duration-300">
-              <Link href="/">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
+          <p className="text-gray-400">Sign up to start creating amazing quizzes</p>
         </div>
-      </div>
-
-      {/* Sign Up Form */}
-      <div className="flex items-center justify-center min-h-[calc(100vh-120px)] relative z-10">
-        <div className="w-full max-w-md">
-          <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-xl border border-purple-400/30 rounded-2xl p-8 shadow-2xl">
-            <SignUpForm />
-          </div>
-        </div>
+        <SignUp 
+          appearance={{
+            elements: {
+              rootBox: "mx-auto",
+              card: "bg-gray-800 border border-purple-400/30 shadow-2xl",
+              headerTitle: "text-white",
+              headerSubtitle: "text-gray-300",
+              socialButtonsBlockButton: "bg-white/10 border border-purple-400/30 text-white hover:bg-purple-600/20",
+              formButtonPrimary: "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700",
+              footerActionLink: "text-purple-400 hover:text-purple-300",
+              formFieldInput: "bg-white/10 border border-purple-400/30 text-white placeholder-gray-400 focus:border-purple-400",
+              formFieldLabel: "text-gray-300",
+              identityPreviewText: "text-gray-300",
+              formResendCodeLink: "text-purple-400 hover:text-purple-300"
+            }
+          }}
+        />
       </div>
     </div>
   );

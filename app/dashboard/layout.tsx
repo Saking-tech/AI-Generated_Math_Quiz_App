@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "../../contexts/AuthContext";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -15,14 +16,20 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const { user: currentUser } = useAuth();
+  const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
 
   useEffect(() => {
+    if (clerkLoaded && !clerkUser) {
+      router.push("/sign-in");
+      return;
+    }
+    
     if (currentUser !== undefined && (!currentUser || currentUser.role !== "quiz-master")) {
       router.push("/");
     }
-  }, [currentUser, router]);
+  }, [currentUser, clerkUser, clerkLoaded, router]);
 
-  if (currentUser === undefined) {
+  if (currentUser === undefined || !clerkLoaded) {
     return (
       <div className="min-h-screen relative">
        {/* Loading Content */}

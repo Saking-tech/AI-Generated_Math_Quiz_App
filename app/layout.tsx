@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ConvexClientProvider } from './convex-provider'
 import { AuthProvider } from '../contexts/AuthContext'
+import { ClerkProvider } from '@clerk/nextjs'
 import dynamic from 'next/dynamic'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
 
@@ -36,23 +37,25 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ConvexClientProvider>
-          <AuthProvider>
-            {/* Performance Monitoring */}
-            <PerformanceMonitor />
-            {/* Background */}
-            <SimpleBackground />
-            {/* BubbleMenu Navigation */}
-            <ResponsiveBubbleMenu />
-            {/* Content */}
-            <div className="relative z-10">
-              {children}
-            </div>
-          </AuthProvider>
-        </ConvexClientProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <ConvexClientProvider>
+            <AuthProvider>
+              {/* Performance Monitoring */}
+              <PerformanceMonitor />
+              {/* Background */}
+              <SimpleBackground />
+              {/* BubbleMenu Navigation */}
+              <ResponsiveBubbleMenu />
+              {/* Content */}
+              <div className="relative z-10">
+                {children}
+              </div>
+            </AuthProvider>
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
